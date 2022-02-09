@@ -231,10 +231,36 @@ h2 {
 
 .formfield input {
     height: 40px;
-    width: 75%;
     color: var(--theme-dark);
     border: 2px solid var(--theme-dark-gray);
     border-radius: 3px;
     font-size: 16px;
     padding: 0 10px;
+}
+
+.pagesection {
+    padding-top: 50px;
+    padding-bottom: 80px;
+}
+
+.pagetitle {
+    margin-top: 50px;
+    margin-bottom: 25px;
+}
+
+.spannedtext {
+    color: var(--theme-dark-gray);
+}
+
+.line {
+    width: 100%;
+}
+
+.themebutton {
+    border-radius: 3px;
+    font-size: 16px;
+    border: none;
+    font-weight: 700;
+    background-color: var(--theme-pink);
+    color: white;
 }

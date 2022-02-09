@@ -5,8 +5,8 @@ function LoginPageContent() {
         <div className={classes.section}>
             <div className={classes.section_one}>
                 <h2>New Customer</h2>
-                <hr />
-                <span>Registration is free and easy.</span>
+                <hr className='line' />
+                <span className='spannedtext'>Registration is free and easy.</span>
                 <ul>
                     <li>
                         Faster Checkout
@@ -20,7 +20,7 @@ function LoginPageContent() {
                 </ul>
             </div>
             <div className={classes.section_two}>
-                <button>
+                <button className={`themebutton ${classes.custombutton}`}>
                     Create an Account
                 </button>
             </div>

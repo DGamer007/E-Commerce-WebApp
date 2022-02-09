@@ -1,0 +1,34 @@
+.section {
+    width: 80%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    row-gap: 60px;
+}
+
+.subsection {
+    display: flex;
+    flex-direction: column;
+    row-gap: 20px;
+}
+
+.subsection form {
+    display: flex;
+    flex-direction: column;
+    row-gap: 40px;
+}
+
+.h_fields {
+    display: flex;
+    column-gap: 30px;
+    justify-content: space-evenly;
+}
+
+.h_fields div {
+    width: 100%;
+}
+
+.custombutton {
+    width: 136px;
+    height: 45px;
+}

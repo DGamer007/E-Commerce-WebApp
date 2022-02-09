@@ -5,27 +5,17 @@
     row-gap: 20px;
 }
 
-.section hr {
-    width: 100%;
-}
-
-.section span {
-    color: var(--theme-dark-gray);
-}
-
 .section form {
     display: flex;
     flex-direction: column;
     row-gap: 40px;
 }
 
-.section form button {
-    border-radius: 3px;
+.section form input {
+    width: 75%;
+}
+
+.custombutton {
     height: 40px;
     width: 100px;
-    font-size: 16px;
-    border: none;
-    font-weight: 700;
-    background-color: var(--theme-pink);
-    color: white;
 }

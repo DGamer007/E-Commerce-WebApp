@@ -4,8 +4,8 @@ function LoginForm() {
     return (
         <div className={classes.section}>
             <h2>Registered Customers</h2>
-            <hr />
-            <span>
+            <hr className='line' />
+            <span className='spannedtext'>
                 If you have an account with us, please log in.
             </span>
 
@@ -19,7 +19,7 @@ function LoginForm() {
                     <input type='password' id='password' />
                 </div>
 
-                <button type='submit'>
+                <button className={`themebutton ${classes.custombutton}`} type='submit'>
                     Login
                 </button>
             </form>
