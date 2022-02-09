@@ -1,7 +1,6 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Header from './components/Header';
 import SearchBar from './components/SearchBar';
-import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
 import SignupPage from './pages/SignupPage';
 import Dashboard from './pages/Dashboard';
@@ -16,8 +15,7 @@ function App() {
       <Header />
       <SearchBar />
       <Routes>
-        <Route path='/' exact element={<HomePage />} />
-        <Route path='/login' element={<LoginPage />} />
+        <Route path='/' exact element={<LoginPage />} />
         <Route path='/signup' element={<SignupPage />} />
         <Route path='/dashboard' element={<Dashboard />} />
         <Route path='/products' elements={<Products />} />

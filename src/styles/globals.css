@@ -7,6 +7,7 @@
     --theme-dark-gray: rgb(194, 194, 194);
     --theme-green: #80BF32;
     --theme-dark: #333;
+    --theme-font-color: #414141;
 }
 
 /* reset-css */
@@ -203,10 +204,37 @@ html, body {
 }
 
 h1 {
-    font-family: 'Roboto';
     font-size: 32px;
-    color: #414141;
+    color: var(--theme-font-color);
     font-weight: 700;
     margin: 25px 0;
     text-align: center;
+}
+
+h2 {
+    font-size: 20px;
+    color: var(--theme-font-color);
+    font-weight: 500;
+}
+
+.formfield {
+    display: flex;
+    flex-direction: column;
+    row-gap: 15px;
+}
+
+.formfield label {
+    font-size: 15px;
+    color: var(--theme-font-color);
+    font-weight: 500;
+}
+
+.formfield input {
+    height: 40px;
+    width: 75%;
+    color: var(--theme-dark);
+    border: 2px solid var(--theme-dark-gray);
+    border-radius: 3px;
+    font-size: 16px;
+    padding: 0 10px;
 }
