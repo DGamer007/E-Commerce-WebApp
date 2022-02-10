@@ -18,16 +18,6 @@
     row-gap: 40px;
 }
 
-.h_fields {
-    display: flex;
-    column-gap: 30px;
-    justify-content: space-evenly;
-}
-
-.h_fields div {
-    width: 100%;
-}
-
 .custombutton {
     width: 136px;
     height: 45px;

@@ -7,7 +7,7 @@ function LoginPage() {
     return (
         <section className='pagesection'>
             <BreadCrumb location='Login' />
-            <h1 className='pagetitle'>Login or Create an Account</h1>
+            <h1 className='pagetitle_with_bc'>Login or Create an Account</h1>
             <div className={classes.sub_section}>
                 <LoginPageContent />
                 <LoginForm />

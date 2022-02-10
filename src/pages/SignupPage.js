@@ -5,7 +5,7 @@ function SignupPage() {
     return (
         <section className='pagesection' >
             <BreadCrumb location='Create an Account' />
-            <h1 className='pagetitle'>Login or Create an Account</h1>
+            <h1 className='pagetitle_with_bc'>Login or Create an Account</h1>
             <SignupForm />
         </section >
     );

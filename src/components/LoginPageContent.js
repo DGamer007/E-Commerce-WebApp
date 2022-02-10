@@ -20,7 +20,7 @@ function LoginPageContent() {
                 </ul>
             </div>
             <div className={classes.section_two}>
-                <button className={`themebutton ${classes.custombutton}`}>
+                <button className={`themepinkbutton ${classes.custombutton}`}>
                     Create an Account
                 </button>
             </div>

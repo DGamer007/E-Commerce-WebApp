@@ -9,7 +9,7 @@ function SignupForm() {
                 <span className='spannedtext'>Please enter the following information to create your account.</span>
 
                 <form>
-                    <div className={classes.h_fields}>
+                    <div className='h_fields'>
                         <div className='formfield' >
                             <label htmlFor='fname'>
                                 First Name *
@@ -36,7 +36,7 @@ function SignupForm() {
                 <hr className='line' />
 
                 <form>
-                    <div className={classes.h_fields}>
+                    <div className='h_fields'>
                         <div className='formfield'>
                             <label htmlFor='password'>Password *</label>
                             <input type='password' id='password' />
@@ -48,7 +48,7 @@ function SignupForm() {
                     </div>
                 </form>
             </div>
-            <button className={`themebutton ${classes.custombutton}`}>
+            <button className={`themepinkbutton ${classes.custombutton}`}>
                 Register
             </button>
         </div>

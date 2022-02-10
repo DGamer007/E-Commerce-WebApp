@@ -5,11 +5,11 @@ function SearchBar() {
         <section className={classes.section}>
             <div className={classes.container}>
                 <input type='search' placeholder='What are you looking for...' className={classes.searchbar} />
-                <button className={classes.search_button}>
+                <button className={`themegreenbutton ${classes.search_button}`}>
                     <img src='/images/search.svg' />
                     <p>Search</p>
                 </button>
-                <button className={classes.cancel_button}>Cancel</button>
+                <button className={`themepinkbutton ${classes.cancel_button}`}>Cancel</button>
             </div>
         </section>
     );

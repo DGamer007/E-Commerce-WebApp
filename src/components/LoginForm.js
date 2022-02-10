@@ -19,7 +19,7 @@ function LoginForm() {
                     <input type='password' id='password' />
                 </div>
 
-                <button className={`themebutton ${classes.custombutton}`} type='submit'>
+                <button className={`themepinkbutton ${classes.custombutton}`} type='submit'>
                     Login
                 </button>
             </form>
