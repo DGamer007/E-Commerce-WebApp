@@ -1,0 +1,43 @@
+.section {
+    width: 80%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    row-gap: 45px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.sort {
+    display: flex;
+    column-gap: 10px;
+    align-items: center;
+    color: var(--theme-font-dark);
+    font-weight: 700;
+}
+
+.sort select {
+    width: 200px;
+    height: 40px;
+    border: 2px solid var(--theme-dark-gray);
+    color: var(--theme-dark);
+    font-weight: 700;
+    padding: 5px;
+    border-radius: 3px;
+    background: url('../../public/images/down-arrow.svg');
+    background-repeat: no-repeat;
+    background-size: 10px 10px;
+    background-position: 170px center;
+}
+
+.items {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    row-gap: 40px;
+    column-gap: 30px;
+}
