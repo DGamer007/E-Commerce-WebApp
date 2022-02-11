@@ -4,7 +4,7 @@ function SearchBar() {
     return (
         <section className={classes.section}>
             <div className={classes.container}>
-                <input type='search' placeholder='What are you looking for...' className={classes.searchbar} />
+                <input type='search' placeholder='What are you looking for...' className={`searchbar ${classes.searchbar}`} />
                 <button className={`themegreenbutton ${classes.search_button}`}>
                     <img src='/images/search.svg' />
                     <p>Search</p>

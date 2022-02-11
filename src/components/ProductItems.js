@@ -1,4 +1,4 @@
-import { Products } from '../utils/dummyData';
+import { DashboardProducts } from '../utils/dummyData';
 import ProductItem from './ProductItem';
 import Pagination from './Pagination';
 import classes from '../styles/ProductItems.module.css';
@@ -20,7 +20,7 @@ function ProductItems() {
             </div>
             <div className={classes.items}>
                 {
-                    Products.map(product => <ProductItem key={product.id} product={product} />)
+                    DashboardProducts.map(product => <ProductItem key={product.id} product={product} />)
                 }
             </div>
             <Pagination />

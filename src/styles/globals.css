@@ -129,7 +129,7 @@ button[disabled], html input[disabled] {
     cursor: default;
 }
 
-input[type="checkbox"], input[type="radio"], input[type="text"], input[type="email"], input[type="password"], input[type="number"], textarea, select {
+input[type="checkbox"], input[type="radio"], input[type="text"], input[type="email"], input[type="password"], input[type="number"], textarea {
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
@@ -286,4 +286,32 @@ h2 {
 
 .h_fields div {
     width: 100%;
+}
+
+.searchbar {
+    color: var(--theme-dark);
+    border: 2px solid var(--theme-dark-gray);
+    border-radius: 3px;
+    font-size: 16px;
+    padding: 0 10px;
+}
+
+.searchbar::placeholder {
+    font-style: italic;
+}
+
+select {
+    appearance: none;
+    border: 2px solid var(--theme-dark-gray);
+    color: var(--theme-dark);
+    font-weight: 700;
+    padding: 5px;
+    border-radius: 3px;
+    background: url('../../public/images/down-arrow.svg');
+    background-repeat: no-repeat;
+    background-size: 10px 10px;
+}
+
+select:hover {
+    cursor: pointer;
 }

@@ -17,15 +17,6 @@
 .searchbar {
     width: 422px;
     height: 40px;
-    color: var(--theme-dark);
-    border: 2px solid var(--theme-dark-gray);
-    border-radius: 3px;
-    font-size: 16px;
-    padding: 0 10px;
-}
-
-.searchbar::placeholder {
-    font-style: italic;
 }
 
 .container button {
