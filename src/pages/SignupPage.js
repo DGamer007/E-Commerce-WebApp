@@ -1,5 +1,5 @@
 import BreadCrumb from '../components/BreadCrumb';
-import SignupForm from '../components/SIgnupForm';
+import SignupForm from '../components/SignupForm';
 
 function SignupPage() {
     return (
