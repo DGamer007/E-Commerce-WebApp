@@ -27,7 +27,7 @@ function ProductList() {
                         <th></th>
                     </tr>
                     {
-                        ListProducts.map(product => <ProductListItem product={product} />)
+                        ListProducts.map(product => <ProductListItem key={product.id} product={product} />)
                     }
                 </table>
             </div>

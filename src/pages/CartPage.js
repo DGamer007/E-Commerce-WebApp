@@ -1,6 +1,11 @@
+import CartList from '../components/CartList';
+
 function CartPage() {
     return (
-        <h1>This is Cart Page</h1>
+        <section className='pagesection'>
+            <h1 className='pagetitle'>Cart Page</h1>
+            <CartList />
+        </section>
     );
 }
 

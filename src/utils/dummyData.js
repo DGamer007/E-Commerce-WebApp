@@ -87,3 +87,34 @@ export const ListProducts = [
         query: 'Teste'
     }
 ];
+
+export const CartProducts = [
+    {
+        id: 1,
+        title: 'Campus Sutra Item 1',
+        amount: 1000,
+        sale: 50,
+        quantity: 1,
+    },
+    {
+        id: 2,
+        title: 'Campus Sutra Item 1',
+        amount: 1000,
+        sale: 50,
+        quantity: 1,
+    },
+    {
+        id: 3,
+        title: 'Campus Sutra Item 1',
+        amount: 1000,
+        sale: 50,
+        quantity: 1,
+    },
+    {
+        id: 4,
+        title: 'Campus Sutra Item 1',
+        amount: 1000,
+        sale: 50,
+        quantity: 1,
+    }
+];

@@ -12,7 +12,7 @@ function ProductItem({ product }) {
                 <span className={classes.product_excerpt}>{product.excerpt}</span>
                 <div className={classes.container}>
                     <span className={classes.product_amount}>
-                        MRP ₹{product.amount}
+                        MRP <s>₹{product.amount}</s>
                         <span className={classes.discount}>
                             {parseFloat(product.sale)}% OFF
                         </span>
