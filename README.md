@@ -1,3 +1,3 @@
-# TatvaSoft Book-E-Sale FrontEnd
+# Tatvasoft Book-E-Sale FrontEnd
 
 ### React.js Web Application
