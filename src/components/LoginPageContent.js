@@ -1,6 +1,10 @@
+import { useNavigate } from 'react-router';
 import classes from '../styles/LoginPageContent.module.css';
 
-function LoginPageContent() {
+function LoginPageContent(props) {
+
+    const navigate = useNavigate();
+
     return (
         <div className={classes.section}>
             <div className={classes.section_one}>
@@ -20,11 +24,13 @@ function LoginPageContent() {
                 </ul>
             </div>
             <div className={classes.section_two}>
-                <button className={`themepinkbutton ${classes.custombutton}`}>
+                <button
+                    className={`themepinkbutton ${classes.custombutton}`}
+                    onClick={() => navigate('/signup')} >
                     Create an Account
                 </button>
             </div>
-        </div>
+        </div >
     );
 }
 

@@ -1,57 +1,101 @@
+import { useAuth } from '../Context/AuthContext';
 import classes from '../styles/SignupForm.module.css';
+import fetchAPI from '../utils/fetchAPI';
 
 function SignupForm() {
+
+    const [, setAuth] = useAuth();
+
+    async function submitHandler(e) {
+        e.preventDefault();
+        try {
+
+            const password = e.target.elements.password.value.trim();
+            const confirmPassword = e.target.elements.cpassword.value.trim();
+            const email = e.target.elements.email.value.trim();
+            const firstName = e.target.elements.fname.value.trim();
+            const lastName = e.target.elements.lname.value.trim();
+
+            if (password !== confirmPassword) {
+                throw new Error('Passwords don\'t match.');
+            }
+
+            const requestObject = {
+                method: 'POST',
+                url: 'http://localhost:5128/register',
+                body: {
+                    firstName,
+                    lastName,
+                    email,
+                    password,
+                    roleId: 3
+                }
+            };
+
+            const { data } = await fetchAPI(requestObject);
+            setAuth({
+                loggedIn: true,
+                user: data
+            });
+            console.log(data);
+        } catch (err) {
+            alert(err.message);
+        }
+    }
+
     return (
-        <div className={classes.section}>
+        <form onSubmit={submitHandler} className={classes.section}>
             <div className={classes.subsection}>
                 <h2>Personal Information</h2>
                 <hr className='line' />
                 <span className='spannedtext'>Please enter the following information to create your account.</span>
 
-                <form>
+                <div className={classes.form1}>
                     <div className='h_fields'>
                         <div className='formfield' >
                             <label htmlFor='fname'>
                                 First Name *
                             </label>
-                            <input type='text' id='fname' />
+                            <input type='text' name='fname' id='fname' />
                         </div>
                         <div className='formfield' >
                             <label htmlFor='lname'>
                                 Last Name *
                             </label>
-                            <input type='text' id='lname' />
+                            <input type='text' name='lname' id='lname' />
                         </div>
                     </div>
                     <div className='formfield' >
                         <label htmlFor='email'>
                             Email Address *
                         </label>
-                        <input type='email' id='email' />
+                        <input type='email' name='email' id='email' />
                     </div>
-                </form>
+                </div>
             </div>
             <div className={classes.subsection}>
                 <h2>Login Information</h2>
                 <hr className='line' />
 
-                <form>
+                <div className={classes.form2}>
                     <div className='h_fields'>
                         <div className='formfield'>
                             <label htmlFor='password'>Password *</label>
-                            <input type='password' id='password' />
+                            <input type='password' name='password' id='password' />
                         </div>
                         <div className='formfield'>
                             <label htmlFor='cpassword'>Confirm Password *</label>
-                            <input type='password' id='cpassword' />
+                            <input type='password' name='cpassword' id='cpassword' />
                         </div>
                     </div>
-                </form>
+                </div>
             </div>
-            <button className={`themepinkbutton ${classes.custombutton}`}>
+            <button
+                type='submit'
+                className={`themepinkbutton ${classes.custombutton}`} >
                 Register
             </button>
-        </div>
+        </form>
     );
 }
 
