@@ -1,8 +1,22 @@
 import { ListProducts } from '../utils/dummyData';
 import classes from '../styles/ProductList.module.css';
 import ProductListItem from './ProductListItem';
+import { TablePagination } from '@mui/material';
+import { useState } from 'react';
 
 function ProductList() {
+    const [page, setPage] = useState(0);
+    const [rowsPerPage, setRowsPerPage] = useState(10);
+
+    const onPageChange = (event, newPage) => {
+        setPage(newPage);
+    };
+
+    const onRowsPerPageChange = (event) => {
+        setRowsPerPage(parseInt(event.target.value, 10));
+        setPage(0);
+    };
+
     return (
         <div className={classes.section}>
             <div className={classes.header}>
@@ -31,23 +45,13 @@ function ProductList() {
                     }
                 </table>
             </div>
-            <div className={classes.pagination}>
-                <div>
-                    <label htmlFor='pages'>Rows per page:</label>
-                    <select id='pages' name='pages'>
-                        <option value='5'>5</option>
-                        <option value='10'>10</option>
-                        <option value='15'>15</option>
-                        <option value='20'>20</option>
-                        <option value='25'>25</option>
-                    </select>
-                </div>
-                <p>1-5 of 6</p>
-                <div className={classes.arrows}>
-                    <img src='/images/breadcrumb-arrow.svg' alt='Left Arrow' />
-                    <img src='/images/breadcrumb-arrow.svg' alt='Right Arrow' />
-                </div>
-            </div>
+            <TablePagination
+                count={100}
+                page={page}
+                rowsPerPage={rowsPerPage}
+                onPageChange={onPageChange}
+                onRowsPerPageChange={onRowsPerPageChange}
+            />
         </div>
     );
 }

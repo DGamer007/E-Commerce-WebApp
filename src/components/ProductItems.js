@@ -1,7 +1,7 @@
 import { DashboardProducts } from '../utils/dummyData';
 import ProductItem from './ProductItem';
-import Pagination from './Pagination';
 import classes from '../styles/ProductItems.module.css';
+import { Pagination } from '@mui/material';
 
 function ProductItems() {
     return (
@@ -23,7 +23,7 @@ function ProductItems() {
                     DashboardProducts.map(product => <ProductItem key={product.id} product={product} />)
                 }
             </div>
-            <Pagination />
+            <Pagination className={classes.pagination} count={10} color="standard" />
         </div>
     );
 }
