@@ -8,39 +8,47 @@ function SignupForm() {
 
     async function submitHandler(e) {
         e.preventDefault();
-        try {
+        // try {
 
-            const password = e.target.elements.password.value.trim();
-            const confirmPassword = e.target.elements.cpassword.value.trim();
-            const email = e.target.elements.email.value.trim();
-            const firstName = e.target.elements.fname.value.trim();
-            const lastName = e.target.elements.lname.value.trim();
+        //     const password = e.target.elements.password.value.trim();
+        //     const confirmPassword = e.target.elements.cpassword.value.trim();
+        //     const email = e.target.elements.email.value.trim();
+        //     const firstName = e.target.elements.fname.value.trim();
+        //     const lastName = e.target.elements.lname.value.trim();
 
-            if (password !== confirmPassword) {
-                throw new Error('Passwords don\'t match.');
+        //     if (password !== confirmPassword) {
+        //         throw new Error('Passwords don\'t match.');
+        //     }
+
+        //     const requestObject = {
+        //         method: 'POST',
+        //         url: 'http://localhost:5128/register',
+        //         body: {
+        //             firstName,
+        //             lastName,
+        //             email,
+        //             password,
+        //             roleId: 3
+        //         }
+        //     };
+
+        //     const { data } = await fetchAPI(requestObject);
+        //     setAuth({
+        //         loggedIn: true,
+        //         user: data
+        //     });
+        //     console.log(data);
+        // } catch (err) {
+        //     alert(err.message);
+        // }
+
+        setAuth({
+            loggedIn: true,
+            user: {
+                username: 'DGamer',
+                email: 'dgamer@demo.com'
             }
-
-            const requestObject = {
-                method: 'POST',
-                url: 'http://localhost:5128/register',
-                body: {
-                    firstName,
-                    lastName,
-                    email,
-                    password,
-                    roleId: 3
-                }
-            };
-
-            const { data } = await fetchAPI(requestObject);
-            setAuth({
-                loggedIn: true,
-                user: data
-            });
-            console.log(data);
-        } catch (err) {
-            alert(err.message);
-        }
+        });
     }
 
     return (

@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router';
 import { useAuth } from '../Context/AuthContext';
 import classes from '../styles/LoginForm.module.css';
 import fetchAPI from '../utils/fetchAPI';
@@ -5,31 +6,40 @@ import fetchAPI from '../utils/fetchAPI';
 function LoginForm() {
 
     const [, setAuth] = useAuth();
+    const navigate = useNavigate();
 
     async function submitHandler(e) {
         e.preventDefault();
 
-        try {
-            const requestObject = {
-                method: 'POST',
-                url: 'http://localhost:5128/login',
-                body: {
-                    email: e.target.elements.email.value,
-                    password: e.target.elements.password.value
-                }
-            };
+        // try {
+        //     const requestObject = {
+        //         method: 'POST',
+        //         url: 'http://localhost:5128/login',
+        //         body: {
+        //             email: e.target.elements.email.value,
+        //             password: e.target.elements.password.value
+        //         }
+        //     };
 
-            const { data } = await fetchAPI(requestObject);
-            setAuth({
-                loggedIn: true,
-                user: data
-            });
+        //     const { data } = await fetchAPI(requestObject);
+        //     setAuth({
+        //         loggedIn: true,
+        //         user: data
+        //     });
 
-        } catch (err) {
-            alert(err.message);
-        }
+        // } catch (err) {
+        //     alert(err.message);
+        // }
 
+        setAuth({
+            loggedIn: true,
+            user: {
+                username: 'DGamer',
+                email: 'dgamer@demo.com'
+            }
+        });
 
+        // navigate('/dashboard');
     }
 
     return (
