@@ -56,14 +56,16 @@ const cookieParser = (req, res, next) => {
     next();
 };
 
-const setCookies = (res, { token, email }) => {
+const setCookies = (res, { token, email, id }) => {
     res.cookie('token', token, { httpOnly: true });
     res.cookie('email', email, { httpOnly: true });
+    res.cookie('auth-uid', id);
 };
 
 const clearCookies = (res) => {
     res.clearCookie('token');
     res.clearCookie('email');
+    res.clearCookie('auth-uid');
 };
 
 module.exports = { encodePassword, comparePassword, filterUser, sendError, setCookies, clearCookies, cookieParser, encodeToken, decodeToken };

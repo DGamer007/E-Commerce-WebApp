@@ -1,10 +1,11 @@
-import { useAuth } from '../Context/AuthContext';
+import { useDispatch } from 'react-redux';
 import classes from '../styles/SignupForm.module.css';
-import fetchAPI from '../utils/fetchAPI';
+import { login } from '../redux/slices/authSlice';
+import { fetchAPI } from '../utils/dataFetching';
 
 function SignupForm() {
 
-    const [, setAuth] = useAuth();
+    const dispatch = useDispatch();
 
     async function submitHandler(e) {
         e.preventDefault();
@@ -42,13 +43,18 @@ function SignupForm() {
         //     alert(err.message);
         // }
 
-        setAuth({
+        // setAuth({
+        //     loggedIn: true,
+        //     user: {
+        //         username: 'DGamer',
+        //         email: 'dgamer@demo.com'
+        //     }
+        // });
+
+        dispatch(login({
             loggedIn: true,
-            user: {
-                username: 'DGamer',
-                email: 'dgamer@demo.com'
-            }
-        });
+            user: 'someid'
+        }));
     }
 
     return (

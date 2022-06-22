@@ -1,10 +1,12 @@
 import { useNavigate, Link } from 'react-router-dom';
-import { useAuth } from '../Context/AuthContext';
+import { useSelector, useDispatch } from 'react-redux';
+import { logout } from '../redux/slices/authSlice';
 import classes from '../styles/Header.module.css';
 
 function Header() {
 
-    const [auth, setAuth] = useAuth();
+    const auth = useSelector(state => state.auth);
+    const dispatch = useDispatch();
     const navigate = useNavigate();
 
     function homeLink() {
@@ -15,7 +17,7 @@ function Header() {
     };
 
     function logoutHandler() {
-        setAuth({ loggedIn: false });
+        dispatch(logout());
     }
 
     return (

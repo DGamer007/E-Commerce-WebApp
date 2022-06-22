@@ -18,7 +18,7 @@ router.get('/authenticate', async (req, res) => {
             try {
                 const user = await prisma.user.findUnique({ where: { id, tokens: { has: token } } });
 
-                setCookies(res, { email: user.email, token });
+                setCookies(res, { email: user.email, token, id: user.id });
                 res.status(202).send({ message: 'Authenticated', data: { user: filterUser(user), token } });
 
             } catch (err) {
@@ -44,7 +44,7 @@ router.post('/login', async (req, res) => {
             try {
                 const token = await generateAuthToken(user.id);
 
-                setCookies(res, { email: user.email, token });
+                setCookies(res, { email: user.email, token, id: user.id });
                 res.status(200).send({ message: 'User loggedIn Successfully', data: { token, user: filterUser(user) } });
             } catch (err) {
                 throw err;
@@ -73,7 +73,7 @@ router.post('/signup', async (req, res) => {
             try {
                 const token = await generateAuthToken(user.id);
 
-                setCookies(res, { email: user.email, token });
+                setCookies(res, { email: user.email, token, id: user.id });
                 res.status(201).send({ message: 'User created Successfully', data: { user: filterUser(user), token } });
             } catch (err) {
                 throw err;

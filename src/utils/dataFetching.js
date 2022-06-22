@@ -1,7 +1,7 @@
+import cookie from 'cookie';
+
 async function fetchAPI({ method, url, body }) {
-
     try {
-
         const headers = new Headers();
         headers.append('Content-Type', 'application/json');
         headers.append('Accept', 'application/json');
@@ -34,4 +34,8 @@ async function fetchAPI({ method, url, body }) {
 
 }
 
-export default fetchAPI;
+const fetchCookies = () => {
+    return cookie.parse(document.cookie);
+};
+
+export { fetchAPI, fetchCookies };

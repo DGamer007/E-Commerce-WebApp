@@ -1,11 +1,11 @@
 import { useNavigate } from 'react-router';
-import { useAuth } from '../Context/AuthContext';
 import classes from '../styles/LoginForm.module.css';
-import fetchAPI from '../utils/fetchAPI';
+import { fetchAPI } from '../utils/dataFetching';
+import { useDispatch } from 'react-redux';
+import { login } from '../redux/slices/authSlice';
 
 function LoginForm() {
-
-    const [, setAuth] = useAuth();
+    const dispatch = useDispatch();
     const navigate = useNavigate();
 
     async function submitHandler(e) {
@@ -31,13 +31,18 @@ function LoginForm() {
         //     alert(err.message);
         // }
 
-        setAuth({
+        // setAuth({
+        //     loggedIn: true,
+        //     user: {
+        //         username: 'DGamer',
+        //         email: 'dgamer@demo.com'
+        //     }
+        // });
+
+        dispatch(login({
             loggedIn: true,
-            user: {
-                username: 'DGamer',
-                email: 'dgamer@demo.com'
-            }
-        });
+            user: 'someid'
+        }));
 
         // navigate('/dashboard');
     }
@@ -66,6 +71,6 @@ function LoginForm() {
             </form>
         </div>
     );
-}
+};
 
 export default LoginForm;

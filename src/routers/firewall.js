@@ -28,6 +28,7 @@ const firewall = async (req, res, next) => {
         }
     } catch (err) {
         console.error(err);
+        clearCookies(res);
         sendError(err, res);
     }
 };

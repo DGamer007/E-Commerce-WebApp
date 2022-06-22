@@ -1,14 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import AuthProvider from './Context/AuthContext';
 import App from './App';
+import { store } from './redux/store';
+import { Provider } from 'react-redux';
 import './styles/globals.css';
 
 ReactDOM.render(
   <React.StrictMode>
-    <AuthProvider>
+    <Provider store={store}>
       <App />
-    </AuthProvider>
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );
