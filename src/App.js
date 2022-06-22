@@ -8,8 +8,8 @@ import Products from './pages/Products';
 import EditProduct from './pages/EditProduct';
 import CartPage from './pages/CartPage';
 import Footer from './components/Footer';
-import PublicRoute from './routers/PublicRoute';
-import PrivateRoute from './routers/PrivateRoute';
+import PublicRoute from './routers/client/PublicRoute';
+import PrivateRoute from './routers/client/PrivateRoute';
 
 function App() {
   return (
