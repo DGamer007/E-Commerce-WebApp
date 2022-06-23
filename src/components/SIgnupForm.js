@@ -43,14 +43,6 @@ function SignupForm() {
         //     alert(err.message);
         // }
 
-        // setAuth({
-        //     loggedIn: true,
-        //     user: {
-        //         username: 'DGamer',
-        //         email: 'dgamer@demo.com'
-        //     }
-        // });
-
         dispatch(login({
             loggedIn: true,
             user: 'someid'

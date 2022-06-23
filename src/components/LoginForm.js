@@ -14,7 +14,7 @@ function LoginForm() {
         // try {
         //     const requestObject = {
         //         method: 'POST',
-        //         url: 'http://localhost:5128/login',
+        //         url: 'http://localhost:4000/login',
         //         body: {
         //             email: e.target.elements.email.value,
         //             password: e.target.elements.password.value
@@ -30,14 +30,6 @@ function LoginForm() {
         // } catch (err) {
         //     alert(err.message);
         // }
-
-        // setAuth({
-        //     loggedIn: true,
-        //     user: {
-        //         username: 'DGamer',
-        //         email: 'dgamer@demo.com'
-        //     }
-        // });
 
         dispatch(login({
             loggedIn: true,
