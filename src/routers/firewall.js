@@ -1,20 +1,21 @@
 const { clearCookies, decodeToken, filterUser, sendError } = require('../utils/backend-utils');
+const { prisma } = require('../prisma');
 
 const firewall = async (req, res, next) => {
     try {
-        if (!req.cookies.token) {
+        if (!req?.cookies?.token) {
             clearCookies(res);
             res.status(401).send({ message: 'Authorization token required' });
             return;
         }
 
         try {
-            const token = req.cookie.token;
+            const token = req.cookies.token;
 
             const data = decodeToken(token);
 
             try {
-                const user = prisma.user.findUnique({ where: { id: data.id, tokens: { has: token } } });
+                const user = await prisma.user.findFirst({ where: { id: data.id, tokens: { has: token } } });
 
                 req.token = token;
                 req.user = filterUser(user);

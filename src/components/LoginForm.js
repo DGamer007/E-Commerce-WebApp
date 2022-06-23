@@ -1,4 +1,3 @@
-import { useNavigate } from 'react-router';
 import classes from '../styles/LoginForm.module.css';
 import { fetchAPI } from '../utils/dataFetching';
 import { useDispatch } from 'react-redux';
@@ -6,37 +5,30 @@ import { login } from '../redux/slices/authSlice';
 
 function LoginForm() {
     const dispatch = useDispatch();
-    const navigate = useNavigate();
 
     async function submitHandler(e) {
         e.preventDefault();
 
-        // try {
-        //     const requestObject = {
-        //         method: 'POST',
-        //         url: 'http://localhost:4000/login',
-        //         body: {
-        //             email: e.target.elements.email.value,
-        //             password: e.target.elements.password.value
-        //         }
-        //     };
+        try {
+            const requestObject = {
+                method: 'POST',
+                url: 'login',
+                body: {
+                    email: e.target.elements.email.value,
+                    password: e.target.elements.password.value
+                }
+            };
 
-        //     const { data } = await fetchAPI(requestObject);
-        //     setAuth({
-        //         loggedIn: true,
-        //         user: data
-        //     });
+            const { data } = await fetchAPI(requestObject);
 
-        // } catch (err) {
-        //     alert(err.message);
-        // }
+            dispatch(login({
+                loggedIn: true,
+                user: data.user.id
+            }));
 
-        dispatch(login({
-            loggedIn: true,
-            user: 'someid'
-        }));
-
-        // navigate('/dashboard');
+        } catch (err) {
+            alert(err.message);
+        }
     }
 
     return (

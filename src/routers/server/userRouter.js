@@ -9,7 +9,7 @@ router.get('/me/products', firewall, async (req, res) => {
 
         console.log(user);
 
-        res.status(200).send({ data: user.products });
+        res.status(200).send({ body: user.products });
     } catch (err) {
         console.error(err);
         sendError(err, res);

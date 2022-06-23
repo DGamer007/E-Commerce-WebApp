@@ -9,7 +9,7 @@ router.get('/products', firewall, async (req, res) => {
         const products = await prisma.product.findMany({ include: { owner: true } });
         console.log(products);
 
-        res.status(200).send({ data: products });
+        res.status(200).send({ body: products });
     } catch (err) {
         console.error(err);
         sendError(err, res);

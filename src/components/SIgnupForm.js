@@ -9,44 +9,39 @@ function SignupForm() {
 
     async function submitHandler(e) {
         e.preventDefault();
-        // try {
+        try {
 
-        //     const password = e.target.elements.password.value.trim();
-        //     const confirmPassword = e.target.elements.cpassword.value.trim();
-        //     const email = e.target.elements.email.value.trim();
-        //     const firstName = e.target.elements.fname.value.trim();
-        //     const lastName = e.target.elements.lname.value.trim();
+            const password = e.target.elements.password.value.trim();
+            const confirmPassword = e.target.elements.cpassword.value.trim();
+            const email = e.target.elements.email.value.toLowerCase().trim();
+            const firstName = e.target.elements.fname.value.trim();
+            const lastName = e.target.elements.lname.value.trim();
 
-        //     if (password !== confirmPassword) {
-        //         throw new Error('Passwords don\'t match.');
-        //     }
+            if (password !== confirmPassword) {
+                throw new Error('Passwords don\'t match.');
+            }
 
-        //     const requestObject = {
-        //         method: 'POST',
-        //         url: 'http://localhost:5128/register',
-        //         body: {
-        //             firstName,
-        //             lastName,
-        //             email,
-        //             password,
-        //             roleId: 3
-        //         }
-        //     };
+            const requestObject = {
+                method: 'POST',
+                url: 'signup',
+                body: {
+                    firstName,
+                    lastName,
+                    email,
+                    password
+                }
+            };
 
-        //     const { data } = await fetchAPI(requestObject);
-        //     setAuth({
-        //         loggedIn: true,
-        //         user: data
-        //     });
-        //     console.log(data);
-        // } catch (err) {
-        //     alert(err.message);
-        // }
+            const { data } = await fetchAPI(requestObject);
 
-        dispatch(login({
-            loggedIn: true,
-            user: 'someid'
-        }));
+            dispatch(login({
+                loggedIn: true,
+                user: data.user.id
+            }));
+
+        } catch (err) {
+            alert(err.message);
+        }
     }
 
     return (
