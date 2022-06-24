@@ -1,9 +1,13 @@
-import classes from '../styles/LoginForm.module.css';
+import { useState } from 'react';
+import { Alert, Snackbar } from '@mui/material';
 import { fetchAPI } from '../utils/dataFetching';
 import { useDispatch } from 'react-redux';
 import { login } from '../redux/slices/authSlice';
+import classes from '../styles/LoginForm.module.css';
 
 function LoginForm() {
+
+    const [alert, setAlert] = useState({});
     const dispatch = useDispatch();
 
     async function submitHandler(e) {
@@ -19,41 +23,66 @@ function LoginForm() {
                 }
             };
 
-            const { data } = await fetchAPI(requestObject);
+            const { data, message } = await fetchAPI(requestObject);
 
-            dispatch(login({
-                loggedIn: true,
-                user: data.user.id
-            }));
+            setAlert({
+                isOpen: true,
+                type: 'success',
+                message
+            });
+
+            setTimeout(() => {
+                dispatch(login({
+                    loggedIn: true,
+                    user: data.user.id
+                }));
+            }, 4000);
 
         } catch (err) {
-            alert(err.message);
+            setAlert({
+                isOpen: true,
+                type: 'error',
+                message: err.message
+            });
         }
     }
 
     return (
-        <div className={classes.section}>
-            <h2>Registered Customers</h2>
-            <hr className='line' />
-            <span className='spannedtext'>
-                If you have an account with us, please log in.
-            </span>
+        <>
+            <div className={classes.section}>
+                <h2>Registered Customers</h2>
+                <hr className='line' />
+                <span className='spannedtext'>
+                    If you have an account with us, please log in.
+                </span>
 
-            <form onSubmit={submitHandler}>
-                <div className='formfield'>
-                    <label htmlFor='email'>Email Address *</label>
-                    <input type='email' name='email' id='email' />
-                </div>
-                <div className='formfield'>
-                    <label htmlFor='password'>Password *</label>
-                    <input type='password' name='password' id='password' />
-                </div>
+                <form onSubmit={submitHandler}>
+                    <div className='formfield'>
+                        <label htmlFor='email'>Email Address *</label>
+                        <input type='email' name='email' id='email' />
+                    </div>
+                    <div className='formfield'>
+                        <label htmlFor='password'>Password *</label>
+                        <input type='password' name='password' id='password' />
+                    </div>
 
-                <button className={`themepinkbutton ${classes.custombutton}`} type='submit'>
-                    Login
-                </button>
-            </form>
-        </div>
+                    <button className={`themepinkbutton ${classes.custombutton}`} type='submit'>
+                        Login
+                    </button>
+                </form>
+            </div>
+            <Snackbar
+                open={alert.isOpen}
+                autoHideDuration={4000}
+                onClose={e => setAlert({ isOpen: false })}>
+                <Alert
+                    onClose={e => setAlert({ isOpen: false })}
+                    severity={alert.type}
+                    sx={{ width: '100%' }} >
+                    {alert.message}
+                </Alert>
+            </Snackbar>
+        </>
     );
 };
 

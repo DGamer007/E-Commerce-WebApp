@@ -20,24 +20,19 @@ function ProductList() {
     return (
         <div className={classes.section}>
             <div className={classes.header}>
-                <input type='search' placeholder='Search...' className={`searchbar ${classes.searchbar}`} />
+                <input
+                    type='search'
+                    placeholder='Search...'
+                    className={`searchbar ${classes.searchbar}`} />
                 <button className={`themepinkbutton ${classes.searchbutton}`}>Add Product</button>
             </div>
             <div className={classes.container}>
                 <table className={classes.table}>
                     <tr>
-                        <th>
-                            ID
-                        </th>
-                        <th>
-                            Title
-                        </th>
-                        <th>
-                            Data Source
-                        </th>
-                        <th>
-                            Query
-                        </th>
+                        <th>ID</th>
+                        <th>Title</th>
+                        <th>Data Source</th>
+                        <th>Query</th>
                         <th></th>
                     </tr>
                     {

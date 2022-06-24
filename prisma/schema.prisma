@@ -18,10 +18,12 @@ model User {
 }
 
 model Product {
-  id          String @id @default(auto()) @map("_id") @db.ObjectId
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
   title       String
-  description String
+  subtitle    String
+  description String?
+  categories  String[]
   image       Bytes
-  ownerId     String @db.ObjectId
-  owner       User   @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  ownerId     String   @db.ObjectId
+  owner       User     @relation(fields: [ownerId], references: [id], onDelete: Cascade)
 }

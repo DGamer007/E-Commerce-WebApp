@@ -1,15 +1,16 @@
 import cookie from 'cookie';
 
-const fetchAPI = async ({ method, url, body = {} }) => {
+const fetchAPI = async ({ method, url, body = {}, isFormData = false }) => {
     try {
         const headers = new Headers();
-        headers.append('Content-Type', 'application/json');
+        !isFormData && headers.append('Content-Type', 'application/json');
         headers.append('Accept', 'application/json');
 
         const requestObject = { method, headers, credentials: 'include' };
 
         if (method !== 'GET' && body) {
-            requestObject.body = JSON.stringify(body);
+
+            requestObject.body = !isFormData ? JSON.stringify(body) : body;
         }
 
         const response = await fetch(`/api/${url}`, requestObject);
