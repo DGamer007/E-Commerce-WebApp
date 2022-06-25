@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { logout } from '../redux/slices/authSlice';
 import classes from '../styles/Header.module.css';
 import { fetchAPI } from '../utils/dataFetching';
+import { success } from '../redux/slices/alertSlice';
 
 function Header() {
 
@@ -19,14 +20,14 @@ function Header() {
 
     const logoutHandler = async () => {
         try {
-            const { status } = await fetchAPI({
+            const { message } = await fetchAPI({
                 method: 'GET',
                 url: 'logout'
             });
 
-            if (status === 200) {
-                dispatch(logout());
-            }
+            dispatch(success(message));
+
+            dispatch(logout());
         } catch (err) {
             alert(err.message);
         }

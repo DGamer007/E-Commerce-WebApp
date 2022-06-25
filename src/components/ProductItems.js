@@ -1,9 +1,36 @@
+import { useEffect, useState } from 'react';
+import { Pagination } from '@mui/material';
+import { useDispatch } from 'react-redux';
 import { DashboardProducts } from '../utils/dummyData';
+import { fetchAPI } from '../utils/dataFetching';
 import ProductItem from './ProductItem';
 import classes from '../styles/ProductItems.module.css';
-import { Pagination } from '@mui/material';
+import { failure } from '../redux/slices/alertSlice';
 
 function ProductItems() {
+
+    const [products, setProducts] = useState([]);
+    const dispatch = useDispatch();
+
+    const getProducts = async () => {
+        try {
+            const { data } = await fetchAPI({
+                method: 'GET',
+                url: 'products'
+            });
+
+            console.log(data);
+            setProducts(data);
+        } catch (err) {
+            dispatch(failure(err.message));
+        }
+    };
+
+    useEffect(() => {
+        getProducts();
+    }, []);
+
+
     return (
         <div className={classes.section}>
             <div className={classes.header}>
@@ -20,7 +47,7 @@ function ProductItems() {
             </div>
             <div className={classes.items}>
                 {
-                    DashboardProducts.map(product => <ProductItem key={product.id} product={product} />)
+                    products.map(product => <ProductItem key={product.id} product={product} />)
                 }
             </div>
             <Pagination className={classes.pagination} count={10} color="standard" />

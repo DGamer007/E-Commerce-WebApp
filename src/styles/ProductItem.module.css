@@ -1,5 +1,6 @@
 .section {
     width: 227px;
+    min-height:412px ;
 }
 
 .section img {

@@ -1,17 +1,19 @@
 import { useEffect, useState } from 'react';
 import { Table, TableBody, TableContainer, TablePagination, TableRow } from '@mui/material';
 import { Alert, Snackbar } from '@mui/material';
+import { useDispatch } from 'react-redux';
 import { fetchAPI } from '../utils/dataFetching';
 import ProductListItem from './ProductListItem';
 import classes from '../styles/ProductList.module.css';
 import { useNavigate } from 'react-router';
+import { failure, success } from '../redux/slices/alertSlice';
 
 function ProductList() {
     const [products, setProducts] = useState([]);
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(10);
-    const [alert, setAlert] = useState({});
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const onPageChange = (event, newPage) => {
         setPage(newPage);
@@ -30,21 +32,13 @@ function ProductList() {
                 body: { id }
             });
 
-            setAlert({
-                isOpen: true,
-                type: 'success',
-                message
-            });
+            dispatch(success(message));
 
             setProducts(prevState => {
                 return prevState.filter(item => item.id !== id);
             });
         } catch (err) {
-            setAlert({
-                isOpen: true,
-                type: 'error',
-                message: err.message
-            });
+            dispatch(success(err.message));
         }
     };
 
@@ -57,11 +51,7 @@ function ProductList() {
 
             setProducts(data);
         } catch (err) {
-            setAlert({
-                isOpen: true,
-                type: 'error',
-                message: err.message
-            });
+            dispatch(failure(err.message));
         }
     };
 
@@ -114,17 +104,6 @@ function ProductList() {
                     onRowsPerPageChange={onRowsPerPageChange}
                 />
             </TableRow></TableBody></Table></TableContainer>
-            <Snackbar
-                open={alert.isOpen}
-                autoHideDuration={4000}
-                onClose={e => setAlert({ isOpen: false })}>
-                <Alert
-                    onClose={e => setAlert({ isOpen: false })}
-                    severity={alert.type}
-                    sx={{ width: '100%' }} >
-                    {alert.message}
-                </Alert>
-            </Snackbar>
         </div>
     );
 }

@@ -1,12 +1,12 @@
 import { useState } from 'react';
-import { Alert, Snackbar } from '@mui/material';
+import { useDispatch } from 'react-redux/';
 import { useNavigate } from 'react-router';
 import { fetchAPI } from '../utils/dataFetching';
 import classes from '../styles/ProductForm.module.css';
+import { failure, success } from '../redux/slices/alertSlice';
 
 function ProductForm({ isEdit = false, product }) {
 
-    const [alert, setAlert] = useState({ isOpen: false });
     const [title, setTitle] = useState(product?.title ?? '');
     const [subtitle, setSubtitle] = useState(product?.subtitle ?? '');
     const [description, setDescription] = useState(product?.description ?? '');
@@ -16,6 +16,7 @@ function ProductForm({ isEdit = false, product }) {
     const [image, setImage] = useState(null);
 
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -39,124 +40,103 @@ function ProductForm({ isEdit = false, product }) {
 
             const { message } = await fetchAPI(requestObject);
 
-            setAlert({
-                isOpen: true,
-                type: 'success',
-                message
-            });
+            dispatch(success(message));
 
             setTimeout(() => {
                 navigate('/products');
             }, 2000);
 
         } catch (err) {
-            setAlert({
-                isOpen: true,
-                type: 'error',
-                message: err.message
-            });
+            dispatch(failure(err.message));
         }
     };
 
 
     return (
-        <>
-            <form onSubmit={handleSubmit} className={classes.section}>
-                <div className='h_fields'>
-                    <div className='formfield'>
-                        <label htmlFor='title'>Product Title *</label>
-                        <input
-                            type='text'
-                            value={title}
-                            onChange={e => setTitle(e.target.value)}
-                            id='title'
-                            required />
-                    </div>
-                    <div className='formfield'>
-                        <label htmlFor='author'>Product Subtitle *</label>
-                        <input
-                            type='text'
-                            value={subtitle}
-                            onChange={e => setSubtitle(e.target.value)}
-                            id='subtitle'
-                            required />
-                    </div>
-                </div>
-
-                <div className='h_fields'>
-                    <div className='formfield'>
-                        <label htmlFor='categories'>Shop by Categories</label>
-                        <input
-                            type='text'
-                            value={categories}
-                            onChange={e => setCategories(e.target.value)}
-                            id='categories' />
-                    </div>
-                    <div className='formfield'>
-                        <label htmlFor='desc'>Description</label>
-                        <input
-                            type='text'
-                            value={description}
-                            onChange={e => setDescription(e.target.value)}
-                            id='desc' />
-                    </div>
-                </div>
-
-                <div className='h_fields'>
-                    <div className='formfield'>
-                        <label htmlFor='amount'>Maximum Retail Price(₹) *</label>
-                        <input
-                            type='number'
-                            value={amount}
-                            onChange={e => setAmount(e.target.value)}
-                            id='amount'
-                            required />
-                    </div>
-                    <div className='formfield'>
-                        <label htmlFor='sale'>Sale(%)</label>
-                        <input
-                            type='number'
-                            value={sale}
-                            onChange={e => setSale(e.target.value)}
-                            id='sale' />
-                    </div>
-                </div>
-
-                <div className={classes.fileinput_container}>
+        <form onSubmit={handleSubmit} className={classes.section}>
+            <div className='h_fields'>
+                <div className='formfield'>
+                    <label htmlFor='title'>Product Title *</label>
                     <input
-                        type='file'
-                        name='image'
-                        onChange={e => setImage(e.target.files?.[0])}
-                        className={classes.fileinput}
-                        required={!isEdit} />
+                        type='text'
+                        value={title}
+                        onChange={e => setTitle(e.target.value)}
+                        id='title'
+                        required />
                 </div>
+                <div className='formfield'>
+                    <label htmlFor='author'>Product Subtitle *</label>
+                    <input
+                        type='text'
+                        value={subtitle}
+                        onChange={e => setSubtitle(e.target.value)}
+                        id='subtitle'
+                        required />
+                </div>
+            </div>
 
-                <div className={classes.buttons}>
-                    <button
-                        type='submit'
-                        className='themegreenbutton'>
-                        Save
-                    </button>
-                    <button
-                        type='reset'
-                        onClick={() => { navigate(-1); }}
-                        className='themepinkbutton'>
-                        Cancel
-                    </button>
+            <div className='h_fields'>
+                <div className='formfield'>
+                    <label htmlFor='categories'>Shop by Categories</label>
+                    <input
+                        type='text'
+                        value={categories}
+                        onChange={e => setCategories(e.target.value)}
+                        id='categories' />
                 </div>
-            </form>
-            <Snackbar
-                open={alert.isOpen}
-                autoHideDuration={4000}
-                onClose={e => setAlert({ isOpen: false })}>
-                <Alert
-                    onClose={e => setAlert({ isOpen: false })}
-                    severity={alert.type}
-                    sx={{ width: '100%' }} >
-                    {alert.message}
-                </Alert>
-            </Snackbar>
-        </>
+                <div className='formfield'>
+                    <label htmlFor='desc'>Description</label>
+                    <input
+                        type='text'
+                        value={description}
+                        onChange={e => setDescription(e.target.value)}
+                        id='desc' />
+                </div>
+            </div>
+
+            <div className='h_fields'>
+                <div className='formfield'>
+                    <label htmlFor='amount'>Maximum Retail Price(₹) *</label>
+                    <input
+                        type='number'
+                        value={amount}
+                        onChange={e => setAmount(e.target.value)}
+                        id='amount'
+                        required />
+                </div>
+                <div className='formfield'>
+                    <label htmlFor='sale'>Sale(%)</label>
+                    <input
+                        type='number'
+                        value={sale}
+                        onChange={e => setSale(e.target.value)}
+                        id='sale' />
+                </div>
+            </div>
+
+            <div className={classes.fileinput_container}>
+                <input
+                    type='file'
+                    name='image'
+                    onChange={e => setImage(e.target.files?.[0])}
+                    className={classes.fileinput}
+                    required={!isEdit} />
+            </div>
+
+            <div className={classes.buttons}>
+                <button
+                    type='submit'
+                    className='themegreenbutton'>
+                    Save
+                </button>
+                <button
+                    type='reset'
+                    onClick={() => { navigate(-1); }}
+                    className='themepinkbutton'>
+                    Cancel
+                </button>
+            </div>
+        </form>
     );
 }
 

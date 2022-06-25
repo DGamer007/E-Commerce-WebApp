@@ -18,8 +18,23 @@ const multerMiddleware = multer({
 
 router.get('/products', firewall, async (req, res) => {
     try {
-        const products = await prisma.product.findMany({ include: { owner: true } });
-        console.log(products);
+        let products = await prisma.product.findMany({
+            include: {
+                owner: {
+                    select: {
+                        id: true,
+                        email: true,
+                        firstName: true,
+                        lastName: true
+                    }
+                }
+            }
+        });
+
+        products = products.map(product => {
+            product.image = product.image.toString('base64');
+            return product;
+        });
 
         res.status(200).send({ body: products });
     } catch (err) {

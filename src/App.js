@@ -1,34 +1,29 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Header from './components/Header';
-import SearchBar from './components/SearchBar';
-import LoginPage from './pages/LoginPage';
-import SignupPage from './pages/SignupPage';
-import Dashboard from './pages/Dashboard';
-import Products from './pages/Products';
-import EditProduct from './pages/EditProduct';
-import CartPage from './pages/CartPage';
-import Footer from './components/Footer';
-import PublicRoute from './routers/client/PublicRoute';
-import PrivateRoute from './routers/client/PrivateRoute';
-import CreateProduct from './pages/CreateProduct';
+import { Alert, Snackbar } from '@mui/material';
+import { useSelector, useDispatch } from 'react-redux';
+import { close } from './redux/slices/alertSlice';
+import AppRouter from './routers/client/AppRouter';
 
-function App() {
+const App = () => {
+
+  const alert = useSelector(state => state.alert);
+  const dispatch = useDispatch();
+
   return (
-    <Router>
-      <Header />
-      <SearchBar />
-      <Routes>
-        <Route path='/' exact element={<PublicRoute component={LoginPage} />} />
-        <Route path='/signup' element={<PublicRoute component={SignupPage} />} />
-        <Route path='/dashboard' element={<PrivateRoute component={Dashboard} />} />
-        <Route path='/products' element={<PrivateRoute component={Products} />} />
-        <Route path='/product/add' element={<PrivateRoute component={CreateProduct} />} />
-        <Route path='/product/edit' element={<PrivateRoute component={EditProduct} />} />
-        <Route path='/cart' element={<PrivateRoute component={CartPage} />} />
-      </Routes>
-      <Footer />
-    </Router>
+    <>
+      <AppRouter />
+      <Snackbar
+        open={alert.open}
+        autoHideDuration={4000}
+        onClose={e => dispatch(close())}>
+        <Alert
+          onClose={e => dispatch(close())}
+          severity={alert.severity}
+          sx={{ width: '100%' }} >
+          {alert.message}
+        </Alert>
+      </Snackbar>
+    </>
   );
-}
+};
 
 export default App;

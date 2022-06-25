@@ -3,11 +3,9 @@ import classes from '../styles/SignupForm.module.css';
 import { login } from '../redux/slices/authSlice';
 import { fetchAPI } from '../utils/dataFetching';
 import { Alert, Snackbar } from '@mui/material';
-import { useState } from 'react';
+import { failure, success } from '../redux/slices/alertSlice';
 
 function SignupForm() {
-
-    const [alert, setAlert] = useState({ isOpen: false });
     const dispatch = useDispatch();
 
     async function submitHandler(e) {
@@ -37,11 +35,7 @@ function SignupForm() {
 
             const { data, message } = await fetchAPI(requestObject);
 
-            setAlert({
-                isOpen: true,
-                type: 'success',
-                message
-            });
+            dispatch(success(message));
 
             setTimeout(() => {
                 dispatch(login({
@@ -51,80 +45,63 @@ function SignupForm() {
             }, 4000);
 
         } catch (err) {
-            setAlert({
-                isOpen: true,
-                type: 'error',
-                message: err.message
-            });
+            dispatch(failure(err.message));
         }
     }
 
     return (
-        <>
-            <form onSubmit={submitHandler} className={classes.section}>
-                <div className={classes.subsection}>
-                    <h2>Personal Information</h2>
-                    <hr className='line' />
-                    <span className='spannedtext'>Please enter the following information to create your account.</span>
+        <form onSubmit={submitHandler} className={classes.section}>
+            <div className={classes.subsection}>
+                <h2>Personal Information</h2>
+                <hr className='line' />
+                <span className='spannedtext'>Please enter the following information to create your account.</span>
 
-                    <div className={classes.form1}>
-                        <div className='h_fields'>
-                            <div className='formfield' >
-                                <label htmlFor='fname'>
-                                    First Name *
-                                </label>
-                                <input type='text' name='fname' id='fname' />
-                            </div>
-                            <div className='formfield' >
-                                <label htmlFor='lname'>
-                                    Last Name *
-                                </label>
-                                <input type='text' name='lname' id='lname' />
-                            </div>
+                <div className={classes.form1}>
+                    <div className='h_fields'>
+                        <div className='formfield' >
+                            <label htmlFor='fname'>
+                                First Name *
+                            </label>
+                            <input type='text' name='fname' id='fname' />
                         </div>
                         <div className='formfield' >
-                            <label htmlFor='email'>
-                                Email Address *
+                            <label htmlFor='lname'>
+                                Last Name *
                             </label>
-                            <input type='email' name='email' id='email' />
+                            <input type='text' name='lname' id='lname' />
                         </div>
                     </div>
+                    <div className='formfield' >
+                        <label htmlFor='email'>
+                            Email Address *
+                        </label>
+                        <input type='email' name='email' id='email' />
+                    </div>
                 </div>
-                <div className={classes.subsection}>
-                    <h2>Login Information</h2>
-                    <hr className='line' />
+            </div>
+            <div className={classes.subsection}>
+                <h2>Login Information</h2>
+                <hr className='line' />
 
-                    <div className={classes.form2}>
-                        <div className='h_fields'>
-                            <div className='formfield'>
-                                <label htmlFor='password'>Password *</label>
-                                <input type='password' name='password' id='password' />
-                            </div>
-                            <div className='formfield'>
-                                <label htmlFor='cpassword'>Confirm Password *</label>
-                                <input type='password' name='cpassword' id='cpassword' />
-                            </div>
+                <div className={classes.form2}>
+                    <div className='h_fields'>
+                        <div className='formfield'>
+                            <label htmlFor='password'>Password *</label>
+                            <input type='password' name='password' id='password' />
+                        </div>
+                        <div className='formfield'>
+                            <label htmlFor='cpassword'>Confirm Password *</label>
+                            <input type='password' name='cpassword' id='cpassword' />
                         </div>
                     </div>
                 </div>
-                <button
-                    type='submit'
-                    className={`themepinkbutton ${classes.custombutton}`} >
-                    Register
-                </button>
-            </form>
-            <Snackbar
-                open={alert.isOpen}
-                autoHideDuration={4000}
-                onClose={e => setAlert({ isOpen: false })}>
-                <Alert
-                    onClose={e => setAlert({ isOpen: false })}
-                    severity={alert.type}
-                    sx={{ width: '100%' }} >
-                    {alert.message}
-                </Alert>
-            </Snackbar>
-        </>
+            </div>
+            <button
+                type='submit'
+                className={`themepinkbutton ${classes.custombutton}`} >
+                Register
+            </button>
+        </form>
     );
 }
 
