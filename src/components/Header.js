@@ -7,7 +7,7 @@ import { success } from '../redux/slices/alertSlice';
 
 function Header() {
 
-    const auth = useSelector(state => state.auth);
+    const { auth, cart } = useSelector(state => ({ auth: state.auth, cart: state.cart }));
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -69,7 +69,7 @@ function Header() {
                             className={classes.cart_button}
                             onClick={() => navigate('/cart')} >
                             <img src='/images/cart.svg' height='20' width='20' />
-                            <span>{0}</span>
+                            <span>{cart.count}</span>
                             <p>Cart</p>
                         </button>
                     </li>

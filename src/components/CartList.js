@@ -1,32 +1,34 @@
 import { CartProducts } from '../utils/dummyData';
 import classes from '../styles/CartList.module.css';
-import { useEffect, useState } from 'react';
 import CartListItem from './CartListItem';
+import { useSelector, useDispatch } from 'react-redux';
 
 function CartList() {
 
-    const [total, setTotal] = useState(0);
-
-    useEffect(() => {
-        let sum = 0;
-        for (let { amount, sale, quantity } of CartProducts) {
-            sum += ((amount - ((amount * sale) / 100)) * quantity);
-        }
-        setTotal(sum);
-    }, []);
+    const { products, count, total } = useSelector(state => state.cart);
 
     return (
         <div className={classes.section}>
-            <div className={classes.header}>
-                <h2>{`My Shopping Bag (${CartProducts.length} Items)`}</h2>
-                <h2>{`Total price: ₹${total}`}</h2>
-            </div>
-            <div className={classes.items}>
-                {
-                    CartProducts.map(product => <CartListItem key={product.id} product={product} />)
-                }
-            </div>
-            <button className={`themepinkbutton ${classes.button}`}>Place Order</button>
+            {
+                count > 0 ? (
+                    <>
+                        <div className={classes.header}>
+                            <h2>{`My Shopping Bag (${count} Items)`}</h2>
+                            <h2>{`Total price: ₹${total}`}</h2>
+                        </div>
+                        <div className={classes.items}>
+                            {
+                                products.map(product => <CartListItem key={product.data.id} product={product} />)
+                            }
+                        </div>
+                        <button className={`themepinkbutton ${classes.button}`}>Place Order</button>
+                    </>
+                ) : (
+                    <h2><center>Nothing in here ! You freak...</center></h2>
+                )
+
+            }
+
         </div>
     );
 }

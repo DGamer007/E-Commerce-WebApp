@@ -19,7 +19,6 @@ function ProductItems() {
                 url: 'products'
             });
 
-            console.log(data);
             setProducts(data);
         } catch (err) {
             dispatch(failure(err.message));

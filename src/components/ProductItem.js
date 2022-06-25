@@ -1,6 +1,11 @@
 import classes from '../styles/ProductItem.module.css';
+import { useDispatch } from 'react-redux';
+import { addProduct, filterAction } from '../redux/slices/cartSlice';
 
 function ProductItem({ product }) {
+
+    const dispatch = useDispatch();
+
     return (
         <div className={classes.section}>
             <img src={`data:image/png;base64,${product.image}`} />
@@ -25,7 +30,11 @@ function ProductItem({ product }) {
                         ₹{parseFloat(product.amount - (product.amount * product.sale) / 100)}
                     </span>
                 </div>
-                <button className={`themepinkbutton ${classes.cartbutton}`}>ADD TO CART</button>
+                <button
+                    className={`themepinkbutton ${classes.cartbutton}`}
+                    onClick={e => { dispatch(addProduct(filterAction(product))); }} >
+                    ADD TO CART
+                </button>
             </div>
         </div>
     );
