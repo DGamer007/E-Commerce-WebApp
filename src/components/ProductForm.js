@@ -4,14 +4,17 @@ import { useNavigate } from 'react-router';
 import { fetchAPI } from '../utils/dataFetching';
 import classes from '../styles/ProductForm.module.css';
 
-function ProductForm({ isEdit = false }) {
+function ProductForm({ isEdit = false, product }) {
 
     const [alert, setAlert] = useState({ isOpen: false });
-    const [title, setTitle] = useState('');
-    const [subtitle, setSubtitle] = useState('');
-    const [description, setDescription] = useState('');
-    const [categories, setCategories] = useState('');
+    const [title, setTitle] = useState(product?.title ?? '');
+    const [subtitle, setSubtitle] = useState(product?.subtitle ?? '');
+    const [description, setDescription] = useState(product?.description ?? '');
+    const [categories, setCategories] = useState(product?.categories?.join(' ') ?? '');
+    const [amount, setAmount] = useState(product?.amount ?? '');
+    const [sale, setSale] = useState(product?.sale ?? '');
     const [image, setImage] = useState(null);
+
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
@@ -19,10 +22,13 @@ function ProductForm({ isEdit = false }) {
         try {
             const formData = new FormData();
             image && formData.append('image', image);
+            isEdit && formData.append('id', product.id);
             formData.append('title', title);
             formData.append('subtitle', subtitle);
             formData.append('categories', categories);
             formData.append('description', description);
+            formData.append('amount', amount);
+            sale && formData.append('sale', sale);
 
             const requestObject = {
                 method: isEdit ? 'PATCH' : 'POST',
@@ -31,13 +37,18 @@ function ProductForm({ isEdit = false }) {
                 isFormData: true
             };
 
-            const { data, message, status } = await fetchAPI(requestObject);
+            const { message } = await fetchAPI(requestObject);
 
             setAlert({
                 isOpen: true,
                 type: 'success',
                 message
             });
+
+            setTimeout(() => {
+                navigate('/products');
+            }, 2000);
+
         } catch (err) {
             setAlert({
                 isOpen: true,
@@ -88,6 +99,26 @@ function ProductForm({ isEdit = false }) {
                             value={description}
                             onChange={e => setDescription(e.target.value)}
                             id='desc' />
+                    </div>
+                </div>
+
+                <div className='h_fields'>
+                    <div className='formfield'>
+                        <label htmlFor='amount'>Maximum Retail Price(₹) *</label>
+                        <input
+                            type='number'
+                            value={amount}
+                            onChange={e => setAmount(e.target.value)}
+                            id='amount'
+                            required />
+                    </div>
+                    <div className='formfield'>
+                        <label htmlFor='sale'>Sale(%)</label>
+                        <input
+                            type='number'
+                            value={sale}
+                            onChange={e => setSale(e.target.value)}
+                            id='sale' />
                     </div>
                 </div>
 

@@ -21,6 +21,8 @@ model Product {
   id          String   @id @default(auto()) @map("_id") @db.ObjectId
   title       String
   subtitle    String
+  amount      Float
+  sale        Float    @default(0)
   description String?
   categories  String[]
   image       Bytes
