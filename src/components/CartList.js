@@ -1,9 +1,8 @@
-import { CartProducts } from '../utils/dummyData';
 import classes from '../styles/CartList.module.css';
 import CartListItem from './CartListItem';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 
-function CartList() {
+const CartList = () => {
 
     const { products, count, total } = useSelector(state => state.cart);
 
@@ -31,6 +30,6 @@ function CartList() {
 
         </div>
     );
-}
+};
 
 export default CartList;

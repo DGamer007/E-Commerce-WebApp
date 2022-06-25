@@ -1,7 +1,7 @@
 import BreadCrumb from '../components/BreadCrumb';
 import SignupForm from '../components/SignupForm';
 
-function SignupPage() {
+const SignupPage = () => {
     return (
         <section className='pagesection' >
             <BreadCrumb location='Create an Account' />
@@ -9,6 +9,6 @@ function SignupPage() {
             <SignupForm />
         </section >
     );
-}
+};
 
 export default SignupPage;

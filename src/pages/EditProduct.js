@@ -1,7 +1,7 @@
 import { useLocation } from 'react-router';
 import ProductForm from '../components/ProductForm';
 
-function EditProduct() {
+const EditProduct = () => {
     const location = useLocation();
 
     return (
@@ -10,6 +10,6 @@ function EditProduct() {
             <ProductForm isEdit={true} product={location.state?.product} />
         </section>
     );
-}
+};
 
 export default EditProduct;

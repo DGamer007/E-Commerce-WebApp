@@ -2,7 +2,7 @@ import { useDispatch } from 'react-redux';
 import { decreaseCount, getPrice, increaseCount, removeProduct } from '../redux/slices/cartSlice';
 import classes from '../styles/CartListItem.module.css';
 
-function CartListItem({ product: { data, count } }) {
+const CartListItem = ({ product: { data, count } }) => {
 
     const dispatch = useDispatch();
 
@@ -52,6 +52,6 @@ function CartListItem({ product: { data, count } }) {
             </div>
         </div>
     );
-}
+};
 
 export default CartListItem;

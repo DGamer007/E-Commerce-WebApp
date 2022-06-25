@@ -1,11 +1,10 @@
 import { useDispatch } from 'react-redux';
-import classes from '../styles/SignupForm.module.css';
-import { login } from '../redux/slices/authSlice';
 import { fetchAPI } from '../utils/dataFetching';
-import { Alert, Snackbar } from '@mui/material';
+import { login } from '../redux/slices/authSlice';
 import { failure, success } from '../redux/slices/alertSlice';
+import classes from '../styles/SignupForm.module.css';
 
-function SignupForm() {
+const SignupForm = () => {
     const dispatch = useDispatch();
 
     async function submitHandler(e) {
@@ -103,6 +102,6 @@ function SignupForm() {
             </button>
         </form>
     );
-}
+};
 
 export default SignupForm;

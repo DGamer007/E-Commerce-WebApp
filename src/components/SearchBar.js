@@ -1,6 +1,6 @@
 import classes from '../styles/SearchBar.module.css';
 
-function SearchBar() {
+const SearchBar = () => {
     return (
         <section className={classes.section}>
             <div className={classes.container}>
@@ -13,6 +13,6 @@ function SearchBar() {
             </div>
         </section>
     );
-}
+};
 
 export default SearchBar;

@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import classes from '../styles/BreadCrumb.module.css';
 
-function BreadCrumb({ location }) {
+const BreadCrumb = ({ location }) => {
     return (
         <div className={classes.container}>
             <Link to='/' className={classes.homeLink}>Home</Link>
@@ -9,6 +9,6 @@ function BreadCrumb({ location }) {
             <p>{location}</p>
         </div>
     );
-}
+};
 
 export default BreadCrumb;

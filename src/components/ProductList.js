@@ -1,14 +1,13 @@
 import { useEffect, useState } from 'react';
 import { Table, TableBody, TableContainer, TablePagination, TableRow } from '@mui/material';
-import { Alert, Snackbar } from '@mui/material';
-import { useDispatch } from 'react-redux';
-import { fetchAPI } from '../utils/dataFetching';
-import ProductListItem from './ProductListItem';
-import classes from '../styles/ProductList.module.css';
 import { useNavigate } from 'react-router';
+import { useDispatch } from 'react-redux';
+import ProductListItem from './ProductListItem';
+import { fetchAPI } from '../utils/dataFetching';
 import { failure, success } from '../redux/slices/alertSlice';
+import classes from '../styles/ProductList.module.css';
 
-function ProductList() {
+const ProductList = () => {
     const [products, setProducts] = useState([]);
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -106,6 +105,6 @@ function ProductList() {
             </TableRow></TableBody></Table></TableContainer>
         </div>
     );
-}
+};
 
 export default ProductList;

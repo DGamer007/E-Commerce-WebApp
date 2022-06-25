@@ -1,8 +1,8 @@
-import classes from '../styles/ProductItem.module.css';
 import { useDispatch } from 'react-redux';
 import { addProduct, filterAction } from '../redux/slices/cartSlice';
+import classes from '../styles/ProductItem.module.css';
 
-function ProductItem({ product }) {
+const ProductItem = ({ product }) => {
 
     const dispatch = useDispatch();
 
@@ -38,6 +38,6 @@ function ProductItem({ product }) {
             </div>
         </div>
     );
-}
+};
 
 export default ProductItem;

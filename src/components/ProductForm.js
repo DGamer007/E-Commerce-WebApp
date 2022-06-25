@@ -2,10 +2,10 @@ import { useState } from 'react';
 import { useDispatch } from 'react-redux/';
 import { useNavigate } from 'react-router';
 import { fetchAPI } from '../utils/dataFetching';
-import classes from '../styles/ProductForm.module.css';
 import { failure, success } from '../redux/slices/alertSlice';
+import classes from '../styles/ProductForm.module.css';
 
-function ProductForm({ isEdit = false, product }) {
+const ProductForm = ({ isEdit = false, product }) => {
 
     const [title, setTitle] = useState(product?.title ?? '');
     const [subtitle, setSubtitle] = useState(product?.subtitle ?? '');
@@ -138,6 +138,6 @@ function ProductForm({ isEdit = false, product }) {
             </div>
         </form>
     );
-}
+};
 
 export default ProductForm;

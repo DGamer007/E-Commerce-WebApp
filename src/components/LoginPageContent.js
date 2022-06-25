@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router';
 import classes from '../styles/LoginPageContent.module.css';
 
-function LoginPageContent(props) {
+const LoginPageContent = (props) => {
 
     const navigate = useNavigate();
 
@@ -32,6 +32,6 @@ function LoginPageContent(props) {
             </div>
         </div >
     );
-}
+};
 
 export default LoginPageContent;

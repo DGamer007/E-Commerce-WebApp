@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router';
 import classes from '../styles/ProductListItem.module.css';
 
-function ProductListItem({ product, deleteProduct }) {
+const ProductListItem = ({ product, deleteProduct }) => {
 
     const navigate = useNavigate();
 
@@ -21,6 +21,6 @@ function ProductListItem({ product, deleteProduct }) {
             </td>
         </tr>
     );
-}
+};
 
 export default ProductListItem;

@@ -1,12 +1,12 @@
 import classes from '../styles/Footer.module.css';
 
-function Footer() {
+const Footer = () => {
     return (
         <footer className={classes.footer}>
             <img src='/images/site-logo.svg' />
             <p>&copy; 2022 Tatvasoft.com. All rights reserved.</p>
         </footer>
     );
-}
+};
 
 export default Footer;

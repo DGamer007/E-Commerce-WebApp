@@ -1,12 +1,10 @@
-import { useState } from 'react';
-import { Alert, Snackbar } from '@mui/material';
-import { fetchAPI } from '../utils/dataFetching';
 import { useDispatch } from 'react-redux';
+import { fetchAPI } from '../utils/dataFetching';
 import { login } from '../redux/slices/authSlice';
-import classes from '../styles/LoginForm.module.css';
 import { failure, success } from '../redux/slices/alertSlice';
+import classes from '../styles/LoginForm.module.css';
 
-function LoginForm() {
+const LoginForm = () => {
     const dispatch = useDispatch();
 
     async function submitHandler(e) {

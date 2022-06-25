@@ -3,7 +3,7 @@ import LoginForm from '../components/LoginForm';
 import LoginPageContent from '../components/LoginPageContent';
 import classes from '../styles/LoginPage.module.css';
 
-function LoginPage() {
+const LoginPage = () => {
     return (
         <section className='pagesection'>
             <BreadCrumb location='Login' />
@@ -14,6 +14,6 @@ function LoginPage() {
             </div>
         </section>
     );
-}
+};
 
 export default LoginPage;

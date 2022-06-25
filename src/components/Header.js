@@ -1,12 +1,11 @@
 import { useNavigate, Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { logout } from '../redux/slices/authSlice';
-import classes from '../styles/Header.module.css';
 import { fetchAPI } from '../utils/dataFetching';
+import { logout } from '../redux/slices/authSlice';
 import { success } from '../redux/slices/alertSlice';
+import classes from '../styles/Header.module.css';
 
-function Header() {
-
+const Header = () => {
     const { auth, cart } = useSelector(state => ({ auth: state.auth, cart: state.cart }));
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -26,7 +25,6 @@ function Header() {
             });
 
             dispatch(success(message));
-
             dispatch(logout());
         } catch (err) {
             alert(err.message);
@@ -77,6 +75,6 @@ function Header() {
             </div>
         </header>
     );
-}
+};
 
 export default Header;
