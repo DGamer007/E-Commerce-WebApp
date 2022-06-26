@@ -1,5 +1,5 @@
-import BreadCrumb from '../components/BreadCrumb';
 import SignupForm from '../components/SignupForm';
+import BreadCrumb from '../components/BreadCrumb';
 
 const SignupPage = () => {
     return (
