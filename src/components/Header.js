@@ -39,7 +39,10 @@ const Header = () => {
                 <ul className={classes.list}>
                     {
                         auth?.loggedIn ? (
-                            <li className={classes.clickable} onClick={logoutHandler}>Logout</li>
+                            <>
+                                <li className={classes.clickable} onClick={e => { navigate('/products'); }}>My Products</li>
+                                <li className={classes.clickable} onClick={logoutHandler}>Logout</li>
+                            </>
                         ) : (
                             <>
                                 <Link
@@ -48,7 +51,7 @@ const Header = () => {
                                     className={classes.clickable} >
                                     Login
                                 </Link>
-                                <li>
+                                <li className={classes.seperator}>
                                     |
                                 </li>
                                 <Link

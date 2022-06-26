@@ -36,12 +36,8 @@
     cursor: pointer;
 }
 
-.list li:nth-child(2) {
-    color: var(--theme-dark-gray);
-}
-
 .seperator {
-    color: var(--theme-gray);
+    color: var(--theme-dark-gray);
 }
 
 .cart_button {
