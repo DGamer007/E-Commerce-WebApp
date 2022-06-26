@@ -8,33 +8,55 @@ import classes from '../styles/ProductItems.module.css';
 
 const ProductItems = () => {
     const [products, setProducts] = useState([]);
+    const [count, setCount] = useState(0);
     const [pages, setPages] = useState(1);
+    const [currentPage, setCurrentPage] = useState(1);
+
     const dispatch = useDispatch();
-    const itemsPerPage = 10;
+    const itemsPerPage = 12;
 
-    const getProducts = async () => {
+    const countPages = (totalProducts) => {
+        const result = (totalProducts / (itemsPerPage + 1)) + 1;
+        return parseInt(result);
+    };
+
+    const getProducts = async (page) => {
         try {
-            const { data } = await fetchAPI({
-                method: 'GET',
-                url: 'products'
-            });
 
-            setProducts(data);
-            setPages((products.length / (itemsPerPage + 1)) + 1);
+            const requestObject = {
+                method: 'GET',
+                url: 'products',
+                queryParams: {
+                    take: itemsPerPage,
+                    page
+                }
+            };
+
+            const { data } = await fetchAPI(requestObject);
+
+            setProducts(data.products);
+            setCount(data.count);
+            setPages(countPages(data.count));
         } catch (err) {
             dispatch(failure(err.message));
         }
     };
 
+    const onChange = (event, page) => {
+        if (currentPage !== page)
+            setCurrentPage(page);
+    };
+
     useEffect(() => {
-        getProducts();
-    }, []);
+        getProducts(currentPage - 1);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [currentPage]);
 
 
     return (
         <div className={classes.section}>
             <div className={classes.header}>
-                <h2>Product Name - 14366 items</h2>
+                <h2>Products - {count} items</h2>
                 <div className={classes.sort}>
                     <label htmlFor='sort'>Sort By</label>
                     <select id='sort' name='sort'>
@@ -50,7 +72,12 @@ const ProductItems = () => {
                     products.map(product => <ProductItem key={product.id} product={product} />)
                 }
             </div>
-            <Pagination className={classes.pagination} count={pages} color="standard" />
+            <Pagination
+                className={classes.pagination}
+                onChange={onChange}
+                page={currentPage}
+                count={pages}
+                color="primary" />
         </div>
     );
 };

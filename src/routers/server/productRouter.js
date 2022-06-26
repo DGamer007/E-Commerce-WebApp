@@ -18,25 +18,32 @@ const multerMiddleware = multer({
 
 router.get('/products', firewall, async (req, res) => {
     try {
-        let products = await prisma.product.findMany({
-            include: {
-                owner: {
-                    select: {
-                        id: true,
-                        email: true,
-                        firstName: true,
-                        lastName: true
-                    }
-                }
+        try {
+            const count = await prisma.product.count({});
+            if (!count) {
+                res.status(200).send({ message: 'No Products', body: { count } });
+                return;
             }
-        });
 
-        products = products.map(product => {
-            product.image = product.image.toString('base64');
-            return product;
-        });
+            if (!req.query?.take) {
+                throw new Error('Number of Items per page is required as "take" query Parameter');
+            }
 
-        res.status(200).send({ body: products });
+            const queryObject = {
+                take: parseInt(req.query.take),
+                skip: parseInt(req.query?.page ?? 0) * req.query.take
+            };
+
+            try {
+                const products = await prisma.product.findMany(queryObject);
+
+                res.status(200).send({ body: { products, count } });
+            } catch (err) {
+                throw err;
+            }
+        } catch (err) {
+            throw err;
+        }
     } catch (err) {
         console.error(err);
         sendError(err, res);

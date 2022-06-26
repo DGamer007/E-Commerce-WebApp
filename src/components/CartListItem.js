@@ -1,4 +1,5 @@
 import { useDispatch } from 'react-redux';
+import { Buffer } from 'buffer';
 import { decreaseCount, getPrice, increaseCount, removeProduct } from '../redux/slices/cartSlice';
 import classes from '../styles/CartListItem.module.css';
 
@@ -8,7 +9,9 @@ const CartListItem = ({ product: { data, count } }) => {
 
     return (
         <div className={classes.container}>
-            <img src={`data:image/png;base64,${data.image}`} />
+            <img
+                alt={`${data.title}`}
+                src={`data:image/png;base64,${Buffer.from(data.image).toString('base64')}`} />
             <div className={classes.cardcontent}>
                 <div className={`${classes.h_content} ${classes.first_div}`}>
                     <span>{data.title}</span>

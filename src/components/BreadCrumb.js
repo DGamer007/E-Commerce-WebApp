@@ -5,7 +5,7 @@ const BreadCrumb = ({ location }) => {
     return (
         <div className={classes.container}>
             <Link to='/' className={classes.homeLink}>Home</Link>
-            <img src='/images/breadcrumb-arrow.svg' />
+            <img alt='Breadcrumb Arrow' src='/images/breadcrumb-arrow.svg' />
             <p>{location}</p>
         </div>
     );

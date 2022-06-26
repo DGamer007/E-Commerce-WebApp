@@ -35,7 +35,7 @@ const Header = () => {
         <header>
             <div className={classes.top}></div>
             <div className={classes.container}>
-                <img className={classes.logo} src='/images/site-logo.svg' onClick={homeLink} />
+                <img alt='Tatvasoft Logo' className={classes.logo} src='/images/site-logo.svg' onClick={homeLink} />
                 <ul className={classes.list}>
                     {
                         auth?.loggedIn ? (
@@ -66,7 +66,7 @@ const Header = () => {
                         <button
                             className={classes.cart_button}
                             onClick={() => navigate('/cart')} >
-                            <img src='/images/cart.svg' height='20' width='20' />
+                            <img alt='Cart Icon' src='/images/cart.svg' height='20' width='20' />
                             <span>{cart.count}</span>
                             <p>Cart</p>
                         </button>

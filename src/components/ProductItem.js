@@ -1,4 +1,5 @@
 import { useDispatch } from 'react-redux';
+import { Buffer } from 'buffer';
 import { addProduct, filterAction } from '../redux/slices/cartSlice';
 import classes from '../styles/ProductItem.module.css';
 
@@ -8,7 +9,9 @@ const ProductItem = ({ product }) => {
 
     return (
         <div className={classes.section}>
-            <img src={`data:image/png;base64,${product.image}`} />
+            <img
+                alt={`${product.title}`}
+                src={`data:image/png;base64,${Buffer.from(product.image).toString('base64')}`} />
             <div className={classes.product_content}>
                 <div className={classes.container}>
                     <span className={classes.product_title}>{product.title}</span>

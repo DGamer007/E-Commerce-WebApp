@@ -1,6 +1,6 @@
 import cookie from 'cookie';
 
-const fetchAPI = async ({ method, url, body = {}, isFormData = false }) => {
+const fetchAPI = async ({ method, url, body = {}, isFormData = false, queryParams = false }) => {
     try {
         const headers = new Headers();
         !isFormData && headers.append('Content-Type', 'application/json');
@@ -9,8 +9,12 @@ const fetchAPI = async ({ method, url, body = {}, isFormData = false }) => {
         const requestObject = { method, headers, credentials: 'include' };
 
         if (method !== 'GET' && body) {
-
             requestObject.body = !isFormData ? JSON.stringify(body) : body;
+        }
+
+        if (queryParams) {
+            queryParams = new URLSearchParams(queryParams).toString();
+            url += `?${queryParams}`;
         }
 
         const response = await fetch(`/api/${url}`, requestObject);

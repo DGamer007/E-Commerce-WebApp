@@ -6,7 +6,7 @@ const SearchBar = () => {
             <div className={classes.container}>
                 <input type='search' placeholder='What are you looking for...' className={`searchbar ${classes.searchbar}`} />
                 <button className={`themegreenbutton ${classes.search_button}`}>
-                    <img src='/images/search.svg' />
+                    <img alt='Search Icon' src='/images/search.svg' />
                     <p>Search</p>
                 </button>
                 <button className={`themepinkbutton ${classes.cancel_button}`}>Cancel</button>
