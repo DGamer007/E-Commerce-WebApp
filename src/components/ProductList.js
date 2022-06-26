@@ -9,6 +9,7 @@ import classes from '../styles/ProductList.module.css';
 
 const ProductList = () => {
     const [products, setProducts] = useState([]);
+    const [count, setCount] = useState(0);
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(10);
     const navigate = useNavigate();
@@ -45,10 +46,15 @@ const ProductList = () => {
         try {
             const { data } = await fetchAPI({
                 method: 'GET',
-                url: 'me/products'
+                url: 'me/products',
+                queryParams: {
+                    take: rowsPerPage,
+                    page
+                }
             });
 
-            setProducts(data);
+            setProducts(data.products);
+            setCount(data.count);
         } catch (err) {
             dispatch(failure(err.message));
         }
@@ -57,7 +63,7 @@ const ProductList = () => {
     useEffect(() => {
         getProducts();
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [page, rowsPerPage]);
 
     return (
         <div className={classes.section}>
@@ -72,38 +78,47 @@ const ProductList = () => {
                     Add Product
                 </button>
             </div>
-            <div className={classes.container}>
-                <table className={classes.table}>
-                    <thead>
-                        <tr>
-                            <th>S.No</th>
-                            <th>Title</th>
-                            <th>Subtitle</th>
-                            <th>MRP (₹)</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {
-                            products.map((product, index) =>
-                                <ProductListItem
-                                    key={product.id}
-                                    product={{ ...product, index: index + 1 }}
-                                    deleteProduct={deleteProduct} />
-                            )
-                        }
-                    </tbody>
-                </table>
-            </div>
-            <TableContainer><Table><TableBody><TableRow>
-                <TablePagination
-                    count={100}
-                    page={page}
-                    rowsPerPage={rowsPerPage}
-                    onPageChange={onPageChange}
-                    onRowsPerPageChange={onRowsPerPageChange}
-                />
-            </TableRow></TableBody></Table></TableContainer>
+            {
+                !!count ? (
+                    <>
+                        <div className={classes.container}>
+                            <table className={classes.table}>
+                                <thead>
+                                    <tr>
+                                        <th>S.No</th>
+                                        <th>Title</th>
+                                        <th>Subtitle</th>
+                                        <th>MRP (₹)</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {
+                                        products.map((product, index) =>
+                                            <ProductListItem
+                                                key={product.id}
+                                                product={{ ...product, index: index + 1 }}
+                                                deleteProduct={deleteProduct} />
+                                        )
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                        <TableContainer><Table><TableBody><TableRow>
+                            <TablePagination
+                                count={count}
+                                page={page}
+                                rowsPerPage={rowsPerPage}
+                                onPageChange={onPageChange}
+                                onRowsPerPageChange={onRowsPerPageChange}
+                            />
+                        </TableRow></TableBody></Table></TableContainer>
+                    </>
+                ) : (
+                    <h2><center>No Products !</center></h2>
+                )
+            }
+
         </div>
     );
 };
