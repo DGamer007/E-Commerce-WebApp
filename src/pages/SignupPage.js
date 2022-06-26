@@ -1,4 +1,4 @@
-import SignupForm from '../components/SignupForm';
+import SignupForm from '../components/SignupForm.js';
 import BreadCrumb from '../components/BreadCrumb';
 
 const SignupPage = () => {
