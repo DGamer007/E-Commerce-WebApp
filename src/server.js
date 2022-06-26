@@ -13,6 +13,7 @@ app.use(express.json());
 app.use(cookieParser);
 
 app.use('/api', authRouter, userRouter, productRouter);
+app.get('*', (req, res) => { res.sendFile(path.join(__dirname, '../build/index.html')); });
 
 app.listen(port, () => {
     console.log('Server is up on PORT ', port);
