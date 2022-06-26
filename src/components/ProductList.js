@@ -53,7 +53,9 @@ const ProductList = () => {
                 }
             });
 
-            setProducts(data.products);
+            if (data.count > 0) {
+                setProducts(data.products);
+            }
             setCount(data.count);
         } catch (err) {
             dispatch(failure(err.message));

@@ -34,9 +34,11 @@ const ProductItems = () => {
 
             const { data } = await fetchAPI(requestObject);
 
-            setProducts(data.products);
+            if (data.count > 0) {
+                setProducts(data.products);
+                setPages(countPages(data.count));
+            }
             setCount(data.count);
-            setPages(countPages(data.count));
         } catch (err) {
             dispatch(failure(err.message));
         }
@@ -55,29 +57,37 @@ const ProductItems = () => {
 
     return (
         <div className={classes.section}>
-            <div className={classes.header}>
-                <h2>Products - {count} items</h2>
-                <div className={classes.sort}>
-                    <label htmlFor='sort'>Sort By</label>
-                    <select id='sort' name='sort'>
-                        <option value='0' >a-z</option>
-                        <option value='1'>z-a</option>
-                        <option value='2'>0-9</option>
-                        <option value='3'>9-0</option>
-                    </select>
-                </div>
-            </div>
-            <div className={classes.items}>
-                {
-                    products.map(product => <ProductItem key={product.id} product={product} />)
-                }
-            </div>
-            <Pagination
-                className={classes.pagination}
-                onChange={onChange}
-                page={currentPage}
-                count={pages}
-                color="primary" />
+            {
+                !!count ? (
+                    <>
+                        <div className={classes.header}>
+                            <h2>Products - {count} items</h2>
+                            <div className={classes.sort}>
+                                <label htmlFor='sort'>Sort By</label>
+                                <select id='sort' name='sort'>
+                                    <option value='0' >a-z</option>
+                                    <option value='1'>z-a</option>
+                                    <option value='2'>0-9</option>
+                                    <option value='3'>9-0</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div className={classes.items}>
+                            {
+                                products.map(product => <ProductItem key={product.id} product={product} />)
+                            }
+                        </div>
+                        <Pagination
+                            className={classes.pagination}
+                            onChange={onChange}
+                            page={currentPage}
+                            count={pages}
+                            color="primary" />
+                    </>
+                ) : (
+                    <h2><center>No Products !</center></h2>
+                )
+            }
         </div>
     );
 };
