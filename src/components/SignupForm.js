@@ -35,13 +35,10 @@ const SignupForm = () => {
             const { data, message } = await fetchAPI(requestObject);
 
             dispatch(success(message));
-
-            setTimeout(() => {
-                dispatch(login({
-                    loggedIn: true,
-                    user: data.user.id
-                }));
-            }, 4000);
+            dispatch(login({
+                loggedIn: true,
+                user: data.user.id
+            }));
 
         } catch (err) {
             dispatch(failure(err.message));

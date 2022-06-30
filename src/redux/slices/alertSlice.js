@@ -2,8 +2,8 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
     open: false,
-    severity: 'success',
-    message: ''
+    severity: null,
+    message: null
 };
 
 
@@ -33,8 +33,8 @@ const alertSlice = createSlice({
         },
         close(state) {
             state.open = false;
-            state.severity = 'success';
-            state.message = '';
+            state.severity = null;
+            state.message = null;
         }
     }
 });

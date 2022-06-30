@@ -28,13 +28,6 @@ const LoginForm = () => {
                 user: data.user.id
             }));
 
-            // setTimeout(() => {
-            //     dispatch(login({
-            //         loggedIn: true,
-            //         user: data.user.id
-            //     }));
-            // }, 4000);
-
         } catch (err) {
             dispatch(failure(err.message));
         }

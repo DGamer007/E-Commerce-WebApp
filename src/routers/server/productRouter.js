@@ -19,20 +19,38 @@ const multerMiddleware = multer({
 router.get('/products', firewall, async (req, res) => {
     try {
         try {
-            const count = await prisma.product.count({});
+            let { search, sort, take, page } = req.query;
+            const queryObject = {};
+
+            search && (
+                queryObject.where = {
+                    OR: [
+                        { title: { contains: req.query.search, mode: 'insensitive' } },
+                        { subtitle: { contains: req.query.search, mode: 'insensitive' } },
+                    ]
+                }
+            );
+
+            sort && (queryObject.orderBy = { title: req.query.sort });
+
+            const count = await prisma.product.count(queryObject);
+
             if (!count) {
                 res.status(200).send({ message: 'No Products', body: { count } });
                 return;
             }
 
-            if (!req.query?.take) {
+            if (!take) {
                 throw new Error('Number of Items per page is required as "take" query Parameter');
             }
 
-            const queryObject = {
-                take: parseInt(req.query.take),
-                skip: parseInt(req.query?.page ?? 0) * req.query.take
-            };
+            take && (take = parseInt(take, 10));
+            page && (page = parseInt(page, 10));
+
+            (count <= take) && (page && (page -= 1));
+
+            take && (queryObject.take = take);
+            page && (queryObject.skip = page * take);
 
             try {
                 const products = await prisma.product.findMany(queryObject);

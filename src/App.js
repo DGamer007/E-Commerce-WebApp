@@ -25,13 +25,17 @@ const App = () => {
         <Snackbar
           open={alert.open}
           autoHideDuration={4000}
-          onClose={e => dispatch(close())}>
-          <Alert
-            onClose={e => dispatch(close())}
-            severity={alert.severity}
-            sx={{ width: '100%' }} >
-            {alert.message}
-          </Alert>
+          onClose={e => { dispatch(close()); }}>
+          {
+            alert.open ? (
+              <Alert
+                onClose={e => { dispatch(close()); }}
+                severity={alert.severity}
+                sx={{ width: '100%' }} >
+                {alert.message}
+              </Alert>
+            ) : null
+          }
         </Snackbar>
       </ThemeProvider>
     </>

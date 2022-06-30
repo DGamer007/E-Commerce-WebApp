@@ -1,6 +1,6 @@
 import { useDispatch } from 'react-redux';
 import { Buffer } from 'buffer';
-import { addProduct, filterAction } from '../redux/slices/cartSlice';
+import { addProduct, filterAction, getFinalPrice } from '../redux/slices/cartSlice';
 import classes from '../styles/ProductItem.module.css';
 
 const ProductItem = ({ product }) => {
@@ -30,7 +30,7 @@ const ProductItem = ({ product }) => {
                         ) : <br />
                     }
                     <span className={classes.final_amount}>
-                        ₹{parseFloat(product.amount - (product.amount * product.sale) / 100)}
+                        ₹{getFinalPrice(product.amount, product.sale)}
                     </span>
                 </div>
                 <button

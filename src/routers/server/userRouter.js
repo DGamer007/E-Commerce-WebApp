@@ -6,7 +6,21 @@ const { prisma } = require('../../prisma');
 router.get('/me/products', firewall, async (req, res) => {
     try {
         try {
-            const count = await prisma.product.count({ where: { ownerId: req.user.id } });
+            const { take, page, search } = req.query;
+            const queryObject = { where: { ownerId: req.user.id } };
+
+            search && (
+                queryObject.where = {
+                    ...queryObject.where,
+                    OR: [
+                        { title: { contains: search, mode: 'insensitive' } },
+                        { subtitle: { contains: search, mode: 'insensitive' } },
+                    ]
+
+                }
+            );
+
+            const count = await prisma.product.count(queryObject);
             if (!count) {
                 res.status(200).send({ body: { count } });
                 return;
@@ -16,11 +30,8 @@ router.get('/me/products', firewall, async (req, res) => {
                 throw new Error('Number of Items per page is required as "take" query Parameter');
             }
 
-            const queryObject = {
-                where: { ownerId: req.user.id },
-                take: parseInt(req.query.take),
-                skip: parseInt(req.query?.page ?? 0) * req.query.take
-            };
+            take && (queryObject.take = parseInt(take));
+            page && (queryObject.skip = parseInt(page) * parseInt(take));
 
             try {
                 const products = await prisma.product.findMany(queryObject);

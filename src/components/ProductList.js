@@ -1,13 +1,16 @@
 import { useEffect, useState } from 'react';
 import { Table, TableBody, TableContainer, TablePagination, TableRow } from '@mui/material';
 import { useNavigate } from 'react-router';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import ProductListItem from './ProductListItem';
 import { fetchAPI } from '../utils/dataFetching';
 import { failure, success } from '../redux/slices/alertSlice';
 import classes from '../styles/ProductList.module.css';
 
 const ProductList = () => {
+
+    const { search } = useSelector(state => state.query);
+
     const [products, setProducts] = useState([]);
     const [count, setCount] = useState(0);
     const [page, setPage] = useState(0);
@@ -38,20 +41,25 @@ const ProductList = () => {
                 return prevState.filter(item => item.id !== id);
             });
         } catch (err) {
-            dispatch(success(err.message));
+            dispatch(failure(err.message));
         }
     };
 
     const getProducts = async () => {
         try {
-            const { data } = await fetchAPI({
+
+            const requestObject = {
                 method: 'GET',
                 url: 'me/products',
                 queryParams: {
                     take: rowsPerPage,
                     page
                 }
-            });
+            };
+
+            search && (requestObject.queryParams.search = search);
+
+            const { data } = await fetchAPI(requestObject);
 
             if (data.count > 0) {
                 setProducts(data.products);
@@ -65,15 +73,11 @@ const ProductList = () => {
     useEffect(() => {
         getProducts();
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [page, rowsPerPage]);
+    }, [page, rowsPerPage, search]);
 
     return (
         <div className={classes.section}>
             <div className={classes.header}>
-                <input
-                    type='search'
-                    placeholder='Search...'
-                    className={`searchbar ${classes.searchbar}`} />
                 <button
                     onClick={e => { navigate('/product/add'); }}
                     className={`themepinkbutton ${classes.searchbutton}`}>

@@ -11,25 +11,19 @@ const cartSlice = createSlice({
     initialState,
     reducers: {
         addProduct(state, { payload }) {
-            let flag = true;
+            const product = state.products.find(p => p.data.id === payload.id);
 
-            state.products.forEach(product => {
-                if (product.data.id === payload.id) {
-                    flag = false;
-                    product.count += 1;
-                }
-            });
+            if (product) product.count += 1;
+            else state.products.push({ data: payload, count: 1 });
 
-            if (flag) state.products.push({ data: payload, count: 1 });
-
-            state.total += getPrice(payload.amount, payload.sale);
+            state.total = fixPrecision(state.total + getFinalPrice(payload.amount, payload.sale));
             state.count += 1;
         },
         removeProduct(state, { payload: { id } }) {
             state.products = state.products.filter(product => {
                 if (product.data.id === id) {
                     state.count -= product.count;
-                    state.total -= getPrice(product.data.amount, product.data.sale) * product.count;
+                    state.total = fixPrecision(state.total - getFinalPrice(product.data.amount, product.data.sale, product.count));
                     return false;
                 }
                 return true;
@@ -39,7 +33,7 @@ const cartSlice = createSlice({
             state.products = state.products.map(product => {
                 if (product.data.id === id) {
                     state.count += 1;
-                    state.total += getPrice(product.data.amount, product.data.sale);
+                    state.total = fixPrecision(state.total + getFinalPrice(product.data.amount, product.data.sale));
                     product.count += 1;
                 }
                 return product;
@@ -49,7 +43,7 @@ const cartSlice = createSlice({
             state.products = state.products.filter(product => {
                 if (product.data.id === id) {
                     state.count -= 1;
-                    state.total -= getPrice(product.data.amount, product.data.sale);
+                    state.total = fixPrecision(state.total - getFinalPrice(product.data.amount, product.data.sale));
                     product.count -= 1;
                     if (product.count === 0) return false;
                 }
@@ -70,8 +64,12 @@ export const filterAction = (payload) => {
     };
 };
 
-export const getPrice = (amount, sale) => {
-    return amount - (amount * sale / 100);
+export const getFinalPrice = (amount, sale, count = 1) => {
+    return fixPrecision((amount - (amount * sale / 100)) * count);
+};
+
+export const fixPrecision = (amount) => {
+    return Number(parseFloat(amount).toFixed(2));
 };
 
 export const { addProduct, removeProduct, increaseCount, decreaseCount } = cartSlice.actions;

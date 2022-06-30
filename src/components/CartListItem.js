@@ -1,6 +1,6 @@
 import { useDispatch } from 'react-redux';
 import { Buffer } from 'buffer';
-import { decreaseCount, getPrice, increaseCount, removeProduct } from '../redux/slices/cartSlice';
+import { decreaseCount, getFinalPrice, increaseCount, removeProduct } from '../redux/slices/cartSlice';
 import classes from '../styles/CartListItem.module.css';
 
 const CartListItem = ({ product: { data, count } }) => {
@@ -15,7 +15,7 @@ const CartListItem = ({ product: { data, count } }) => {
             <div className={classes.cardcontent}>
                 <div className={`${classes.h_content} ${classes.first_div}`}>
                     <span>{data.title}</span>
-                    <span>₹{getPrice(data.amount, data.sale) * count}</span>
+                    <span>₹{getFinalPrice(data.amount, data.sale, count)}</span>
                 </div>
                 <div className={`${classes.h_content} ${classes.second_div}`}>
                     <span>{data.subtitle}</span>

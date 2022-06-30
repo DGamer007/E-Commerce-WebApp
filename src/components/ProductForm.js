@@ -41,10 +41,7 @@ const ProductForm = ({ isEdit = false, product }) => {
             const { message } = await fetchAPI(requestObject);
 
             dispatch(success(message));
-
-            setTimeout(() => {
-                navigate('/products');
-            }, 2000);
+            navigate('/products');
 
         } catch (err) {
             dispatch(failure(err.message));
