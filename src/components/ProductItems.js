@@ -5,6 +5,7 @@ import ProductItem from './ProductItem';
 import { fetchAPI } from '../utils/dataFetching';
 import { failure } from '../redux/slices/alertSlice';
 import { sortBy } from '../redux/slices/querySlice';
+import CenteredImage from './CenteredImage';
 import classes from '../styles/ProductItems.module.css';
 
 const ProductItems = () => {
@@ -106,7 +107,10 @@ const ProductItems = () => {
                             color="primary" />
                     </>
                 ) : (
-                    <h2><center>No Products !</center></h2>
+                    <CenteredImage
+                        alt='No products found'
+                        src='/images/girl-empty.gif'
+                    />
                 )
             }
         </div>

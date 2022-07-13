@@ -1,8 +1,6 @@
 import { useNavigate, Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchAPI } from '../utils/dataFetching';
 import { logout } from '../redux/slices/authSlice';
-import { success } from '../redux/slices/alertSlice';
 import classes from '../styles/Header.module.css';
 
 const Header = () => {
@@ -17,19 +15,7 @@ const Header = () => {
             navigate('/');
     };
 
-    const logoutHandler = async () => {
-        try {
-            const { message } = await fetchAPI({
-                method: 'GET',
-                url: 'logout'
-            });
-
-            dispatch(success(message));
-            dispatch(logout());
-        } catch (err) {
-            alert(err.message);
-        }
-    };
+    const logoutHandler = () => { dispatch(logout()); };
 
     return (
         <header>

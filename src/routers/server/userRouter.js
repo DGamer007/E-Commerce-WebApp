@@ -1,7 +1,7 @@
 const router = require('express').Router();
+const { prisma } = require('../../prisma');
 const { sendError } = require('../../utils/backend-utils');
 const firewall = require('../firewall');
-const { prisma } = require('../../prisma');
 
 router.get('/me/products', firewall, async (req, res) => {
     try {

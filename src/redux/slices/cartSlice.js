@@ -1,10 +1,62 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { fetchAPI } from '../../utils/dataFetching';
+import { success, failure } from './alertSlice';
 
 const initialState = {
     products: [],
     count: 0,
     total: 0
 };
+
+export const getCart = createAsyncThunk(
+    'cart/getCart',
+    async (_, { dispatch, rejectWithValue }) => {
+        try {
+            const requestObject = {
+                method: 'GET',
+                url: 'cart'
+            };
+
+            const { data, message } = await fetchAPI(requestObject);
+            console.log(data);
+            dispatch(success(message));
+
+            return data;
+        } catch (err) {
+            console.error(err);
+            dispatch(failure(err.message));
+            rejectWithValue(err);
+        }
+    }
+);
+
+export const saveCart = createAsyncThunk(
+    'cart/saveCart',
+    async (_, { dispatch, rejectWithValue, getState }) => {
+        try {
+            const { products, count, total } = getState().cart;
+
+            const requestObject = {
+                url: 'save/cart',
+                method: 'POST',
+                body: {
+                    products: readyCartData(products),
+                    count,
+                    total
+                }
+            };
+
+            const { message } = await fetchAPI(requestObject);
+
+            dispatch(success(message));
+            return;
+        } catch (err) {
+            console.error(err);
+            dispatch(failure(err.message));
+            rejectWithValue(err);
+        }
+    }
+);
 
 const cartSlice = createSlice({
     name: 'cart',
@@ -50,8 +102,31 @@ const cartSlice = createSlice({
                 return true;
             });
         }
+    },
+    extraReducers: (builder) => {
+        builder.addCase(getCart.fulfilled, (state, { payload }) => {
+            if (payload.empty) {
+                state.count = 0;
+                state.total = 0;
+                state.products = [];
+            } else {
+                state.count = payload.count;
+                state.total = payload.total;
+                state.products = payload.products.map(({ product, quantity }) => ({ data: filterAction(product), count: quantity }));
+            }
+        });
+        builder.addDefaultCase(state => state);
     }
 });
+
+export const readyCartData = (products) => {
+    return products.map(product => (
+        {
+            id: product.data.id,
+            count: product.count
+        }
+    ));
+};
 
 export const filterAction = (payload) => {
     return {

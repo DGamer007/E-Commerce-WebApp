@@ -1,16 +1,14 @@
 import { useDispatch } from 'react-redux';
-import { fetchAPI } from '../utils/dataFetching';
-import { login } from '../redux/slices/authSlice';
-import { failure, success } from '../redux/slices/alertSlice';
+import { signup } from '../redux/slices/authSlice';
+import { failure } from '../redux/slices/alertSlice';
 import classes from '../styles/SignupForm.module.css';
 
 const SignupForm = () => {
     const dispatch = useDispatch();
 
-    async function submitHandler(e) {
+    const submitHandler = (e) => {
         e.preventDefault();
         try {
-
             const password = e.target.elements.password.value.trim();
             const confirmPassword = e.target.elements.cpassword.value.trim();
             const email = e.target.elements.email.value.toLowerCase().trim();
@@ -21,29 +19,16 @@ const SignupForm = () => {
                 throw new Error('Passwords don\'t match.');
             }
 
-            const requestObject = {
-                method: 'POST',
-                url: 'signup',
-                body: {
-                    firstName,
-                    lastName,
-                    email,
-                    password
-                }
-            };
-
-            const { data, message } = await fetchAPI(requestObject);
-
-            dispatch(success(message));
-            dispatch(login({
-                loggedIn: true,
-                user: data.user.id
+            dispatch(signup({
+                email,
+                password,
+                firstName,
+                lastName
             }));
-
         } catch (err) {
             dispatch(failure(err.message));
         }
-    }
+    };
 
     return (
         <form onSubmit={submitHandler} className={classes.section}>

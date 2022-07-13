@@ -1,5 +1,6 @@
 const router = require('express').Router();
-const { prisma, generateAuthToken, findByCredentials } = require('../../prisma');
+const { prisma } = require('../../prisma');
+const { generateAuthToken, findByCredentials } = require('../../prisma');
 const { filterUser, encodePassword, sendError, setCookies, clearCookies, decodeToken } = require('../../utils/backend-utils');
 const firewall = require('../firewall');
 

@@ -243,6 +243,11 @@ h2 {
     padding-bottom: 80px;
 }
 
+.imagecontainer {
+    display: flex;
+    justify-content: center;
+}
+
 .pagetitle_without_bc {
     margin-bottom: 25px;
 }

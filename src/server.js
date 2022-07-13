@@ -3,6 +3,7 @@ const path = require('path');
 const authRouter = require('./routers/server/authRouter');
 const userRouter = require('./routers/server/userRouter');
 const productRouter = require('./routers/server/productRouter');
+const cartRouter = require('./routers/server/cartRouter');
 const { cookieParser } = require('./utils/backend-utils');
 
 const app = express();
@@ -12,7 +13,7 @@ app.use(express.static(path.join(__dirname, '../build')));
 app.use(express.json());
 app.use(cookieParser);
 
-app.use('/api', authRouter, userRouter, productRouter);
+app.use('/api', authRouter, userRouter, productRouter, cartRouter);
 app.get('*', (req, res) => { res.sendFile(path.join(__dirname, '../build/index.html')); });
 
 app.listen(port, () => {

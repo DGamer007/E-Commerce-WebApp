@@ -1,37 +1,17 @@
 import { useDispatch } from 'react-redux';
-import { fetchAPI } from '../utils/dataFetching';
 import { login } from '../redux/slices/authSlice';
-import { failure, success } from '../redux/slices/alertSlice';
 import classes from '../styles/LoginForm.module.css';
 
 const LoginForm = () => {
     const dispatch = useDispatch();
 
-    async function submitHandler(e) {
+    const submitHandler = (e) => {
         e.preventDefault();
-
-        try {
-            const requestObject = {
-                method: 'POST',
-                url: 'login',
-                body: {
-                    email: e.target.elements.email.value,
-                    password: e.target.elements.password.value
-                }
-            };
-
-            const { data, message } = await fetchAPI(requestObject);
-
-            dispatch(success(message));
-            dispatch(login({
-                loggedIn: true,
-                user: data.user.id
-            }));
-
-        } catch (err) {
-            dispatch(failure(err.message));
-        }
-    }
+        dispatch(login({
+            email: e.target.elements.email.value.toLowerCase().trim(),
+            password: e.target.elements.password.value.trim()
+        }));
+    };
 
     return (
         <div className={classes.section}>

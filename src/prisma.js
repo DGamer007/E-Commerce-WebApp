@@ -1,5 +1,4 @@
 const { PrismaClient } = require('@prisma/client');
-const jwt = require('jsonwebtoken');
 const { comparePassword, encodeToken } = require('./utils/backend-utils');
 
 const prisma = new PrismaClient();
@@ -10,7 +9,7 @@ const generateAuthToken = async (id) => {
             const token = encodeToken({ id });
 
             try {
-                user = await prisma.user.update({
+                const user = await prisma.user.update({
                     where: { id }, data: {
                         tokens: { push: token }
                     }

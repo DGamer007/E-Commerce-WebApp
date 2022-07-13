@@ -11,6 +11,7 @@ import Footer from '../../components/Footer';
 import PublicRoute from '../../routers/client/PublicRoute';
 import PrivateRoute from '../../routers/client/PrivateRoute';
 import CreateProduct from '../../pages/CreateProduct';
+import NotFoundPage from '../../pages/NotFoundPage';
 
 
 const AppRouter = () => {
@@ -26,6 +27,7 @@ const AppRouter = () => {
                 <Route path='/product/add' element={<PrivateRoute component={CreateProduct} />} />
                 <Route path='/product/edit' element={<PrivateRoute component={EditProduct} />} />
                 <Route path='/cart' element={<PrivateRoute component={CartPage} />} />
+                <Route path='*' element={<NotFoundPage />} />
             </Routes>
             <Footer />
         </Router>

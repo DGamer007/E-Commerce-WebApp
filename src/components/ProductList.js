@@ -6,6 +6,7 @@ import ProductListItem from './ProductListItem';
 import { fetchAPI } from '../utils/dataFetching';
 import { failure, success } from '../redux/slices/alertSlice';
 import classes from '../styles/ProductList.module.css';
+import CenteredImage from './CenteredImage';
 
 const ProductList = () => {
 
@@ -121,7 +122,11 @@ const ProductList = () => {
                         </TableRow></TableBody></Table></TableContainer>
                     </>
                 ) : (
-                    <h2><center>No Products !</center></h2>
+                    <CenteredImage
+                        alt='No Products found'
+                        src='/images/girl-empty.gif'
+
+                    />
                 )
             }
 
