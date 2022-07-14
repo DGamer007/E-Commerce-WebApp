@@ -1,6 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { fetchCookies, fetchAPI } from '../../utils/dataFetching';
-import { failure, success } from './alertSlice';
 
 const cookies = fetchCookies();
 
@@ -11,7 +10,7 @@ const initialState = {
 
 export const signup = createAsyncThunk(
     'auth/signup',
-    async (input, { dispatch, rejectWithValue }) => {
+    async (input, { rejectWithValue }) => {
         try {
             const requestObject = {
                 method: 'POST',
@@ -20,20 +19,17 @@ export const signup = createAsyncThunk(
             };
 
             const { data, message } = await fetchAPI(requestObject);
-            dispatch(success(message));
-
-            return data.user.id;
+            return { user: data.user.id, message };
         } catch (err) {
             console.error(err);
-            dispatch(failure(err.message));
-            rejectWithValue(err);
+            return rejectWithValue(err);
         }
     }
 );
 
 export const login = createAsyncThunk(
     'auth/login',
-    async ({ email, password }, { dispatch, rejectWithValue }) => {
+    async ({ email, password }, { rejectWithValue }) => {
         try {
             const requestObject = {
                 method: 'POST',
@@ -42,20 +38,18 @@ export const login = createAsyncThunk(
             };
 
             const { data, message } = await fetchAPI(requestObject);
-            dispatch(success(message));
 
-            return data.user.id;
+            return { user: data.user.id, message };
         } catch (err) {
             console.error(err);
-            dispatch(failure(err.message));
-            rejectWithValue(err);
+            return rejectWithValue(err);
         }
     }
 );
 
 export const logout = createAsyncThunk(
     'auth/logout',
-    async (_, { dispatch, rejectWithValue }) => {
+    async (_, { rejectWithValue }) => {
         try {
             const requestObject = {
                 method: 'GET',
@@ -63,12 +57,10 @@ export const logout = createAsyncThunk(
             };
 
             const { message } = await fetchAPI(requestObject);
-            dispatch(success(message));
-            return;
+            return { message };
         } catch (err) {
             console.error(err);
-            dispatch(failure(err.message));
-            rejectWithValue(err);
+            return rejectWithValue(err);
         }
     }
 );

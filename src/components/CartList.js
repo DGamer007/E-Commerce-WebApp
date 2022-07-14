@@ -1,34 +1,11 @@
 import classes from '../styles/CartList.module.css';
 import CartListItem from './CartListItem';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchAPI } from '../utils/dataFetching';
-import { readyCartData } from '../redux/slices/cartSlice';
-import { failure, success } from '../redux/slices/alertSlice';
+import { saveCart } from '../redux/slices/cartSlice';
 
 const CartList = () => {
-
     const { products, count, total } = useSelector(state => state.cart);
     const dispatch = useDispatch();
-
-    const saveCart = async () => {
-        try {
-            const { message } = await fetchAPI({
-                url: 'save/cart',
-                method: 'POST',
-                body: {
-                    products: readyCartData(products),
-                    count,
-                    total
-                }
-            });
-
-            dispatch(success(message));
-
-        } catch (err) {
-            console.error(err);
-            dispatch(failure(err.message));
-        }
-    };
 
     return (
         <div className={classes.section}>
@@ -43,7 +20,7 @@ const CartList = () => {
             </div>
             <button
                 className={`themepinkbutton ${classes.button}`}
-                onClick={saveCart}>
+                onClick={() => { dispatch(saveCart()); }}>
                 Save Cart
             </button>
         </div>

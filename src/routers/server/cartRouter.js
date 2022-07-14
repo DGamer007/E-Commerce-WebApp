@@ -74,7 +74,7 @@ router.get('/cart', firewall, async (req, res) => {
             }
         });
 
-        cart ? (
+        cart?.products.length ? (
             res.status(200).send({
                 message: 'Success',
                 body: {

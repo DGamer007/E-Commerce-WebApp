@@ -1,6 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { fetchAPI } from '../../utils/dataFetching';
-import { success, failure } from './alertSlice';
 
 const initialState = {
     products: [],
@@ -10,7 +9,7 @@ const initialState = {
 
 export const getCart = createAsyncThunk(
     'cart/getCart',
-    async (_, { dispatch, rejectWithValue }) => {
+    async (_, { rejectWithValue }) => {
         try {
             const requestObject = {
                 method: 'GET',
@@ -18,21 +17,17 @@ export const getCart = createAsyncThunk(
             };
 
             const { data, message } = await fetchAPI(requestObject);
-            console.log(data);
-            dispatch(success(message));
-
-            return data;
+            return { data, message };
         } catch (err) {
             console.error(err);
-            dispatch(failure(err.message));
-            rejectWithValue(err);
+            return rejectWithValue(err);
         }
     }
 );
 
 export const saveCart = createAsyncThunk(
     'cart/saveCart',
-    async (_, { dispatch, rejectWithValue, getState }) => {
+    async (_, { rejectWithValue, getState }) => {
         try {
             const { products, count, total } = getState().cart;
 
@@ -47,13 +42,10 @@ export const saveCart = createAsyncThunk(
             };
 
             const { message } = await fetchAPI(requestObject);
-
-            dispatch(success(message));
-            return;
+            return { message };
         } catch (err) {
             console.error(err);
-            dispatch(failure(err.message));
-            rejectWithValue(err);
+            return rejectWithValue(err);
         }
     }
 );
@@ -101,18 +93,23 @@ const cartSlice = createSlice({
                 }
                 return true;
             });
+        },
+        empty(state) {
+            state.products = [];
+            state.count = 0;
+            state.total = 0;
         }
     },
     extraReducers: (builder) => {
-        builder.addCase(getCart.fulfilled, (state, { payload }) => {
-            if (payload.empty) {
+        builder.addCase(getCart.fulfilled, (state, { payload: { data } }) => {
+            if (data.empty) {
                 state.count = 0;
                 state.total = 0;
                 state.products = [];
             } else {
-                state.count = payload.count;
-                state.total = payload.total;
-                state.products = payload.products.map(({ product, quantity }) => ({ data: filterAction(product), count: quantity }));
+                state.count = data.count;
+                state.total = data.total;
+                state.products = data.products.map(({ product, quantity }) => ({ data: filterAction(product), count: quantity }));
             }
         });
         builder.addDefaultCase(state => state);
@@ -147,6 +144,6 @@ export const fixPrecision = (amount) => {
     return Number(parseFloat(amount).toFixed(2));
 };
 
-export const { addProduct, removeProduct, increaseCount, decreaseCount } = cartSlice.actions;
+export const { addProduct, removeProduct, empty, increaseCount, decreaseCount } = cartSlice.actions;
 
 export default cartSlice.reducer;

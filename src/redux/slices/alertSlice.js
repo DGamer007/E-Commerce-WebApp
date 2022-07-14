@@ -1,4 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { login, logout, signup } from './authSlice';
+import { getCart, saveCart } from './cartSlice';
 
 const initialState = {
     open: false,
@@ -36,6 +38,61 @@ const alertSlice = createSlice({
             state.severity = null;
             state.message = null;
         }
+    },
+    extraReducers: (builder) => {
+        builder.addCase(login.fulfilled, (state, { payload }) => {
+            state.open = true;
+            state.severity = 'success';
+            state.message = payload.message;
+        });
+
+        builder.addCase(signup.fulfilled, (state, { payload }) => {
+            state.open = true;
+            state.severity = 'success';
+            state.message = payload.message;
+        });
+
+        builder.addCase(logout.fulfilled, (state, { payload }) => {
+            state.open = true;
+            state.severity = 'success';
+            state.message = payload.message;
+        });
+
+        builder.addCase(saveCart.fulfilled, (state, { payload }) => {
+            state.open = true;
+            state.severity = 'success';
+            state.message = payload.message;
+        });
+
+        builder.addCase(saveCart.rejected, (state, { payload }) => {
+            state.open = true;
+            state.severity = 'error';
+            state.message = payload.message;
+        });
+
+        builder.addCase(getCart.rejected, (state, { payload }) => {
+            state.open = true;
+            state.severity = 'error';
+            state.message = payload.message;
+        });
+
+        builder.addCase(logout.rejected, (state, { payload }) => {
+            state.open = true;
+            state.severity = 'error';
+            state.message = payload.message;
+        });
+
+        builder.addCase(signup.rejected, (state, { payload }) => {
+            state.open = true;
+            state.severity = 'error';
+            state.message = payload.message;
+        });
+
+        builder.addCase(login.rejected, (state, { payload }) => {
+            state.open = true;
+            state.severity = 'error';
+            state.message = payload.message;
+        });
     }
 });
 
