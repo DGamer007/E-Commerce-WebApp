@@ -21,7 +21,7 @@ const Header = () => {
         <header>
             <div className={classes.top}></div>
             <div className={classes.container}>
-                <img alt='Tatvasoft Logo' className={classes.logo} src='/images/site-logo.svg' onClick={homeLink} />
+                <img alt='Website Logo' className={classes.logo} src='/images/site-logo.svg' onClick={homeLink} />
                 <ul className={classes.list}>
                     {
                         auth?.loggedIn ? (
