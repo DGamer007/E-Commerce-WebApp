@@ -8,7 +8,7 @@ E-Commerce Web Application is as name suggests an Online Store. Users can sell a
 
 I have already deployed this Application on [Heroku](https://heroku.com)
 
-[Click here]() to visit E-Commerce Web Application
+[Click here](https://e-commerce-dgamer.herokuapp.com) to visit E-Commerce Web Application
 
 <br>
 <br>
